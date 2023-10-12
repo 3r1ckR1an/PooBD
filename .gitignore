@@ -3,3 +3,5 @@
 .vscode
 *migrations*
 **migrations*
+*pycache*
+**pycache*

@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-xxe$vfnj_+n7hrtg=rw-u_68lek4euj5p!+(rxuvm93$lr$rz4'
+SECRET_KEY = 'django-insecure-)$ykw5)9opcqo-8l3y)j)htbi4$2^)05%@nm_)16g1*iq+c-r@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'recipes.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'recipes_db', 
+        'USER': 'postgres',
+        'PASSWORD': '123456',
+        'HOST': '127.0.0.1', 
+        'PORT': '5432',
     }
 }
 
