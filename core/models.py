@@ -68,7 +68,7 @@ class Restaurante(models.Model, PrimitiveModel):
     name = models.CharField(max_length=200, unique=True)
 
 
-class IngredientInRecipe(models.Model, PrimitiveModel):
+class Porcao(models.Model, PrimitiveModel):
     ingredient = models.OneToOneField(Ingrediente, on_delete=models.CASCADE)
     ingredient_amount = models.IntegerField()
     measurement = models.CharField(null=True, blank=True)
