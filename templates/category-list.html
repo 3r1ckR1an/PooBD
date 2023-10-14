@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block content %}
+<div class="w-screen p-4">
+	<h1 class="font-bold text-2xl mb-5">Categorias</h1>
+	<div class="flex gap-6 flex-wrap">
+		{% for categoria in categorias %}
+		<div class="rounded p-2 text-white bg-gray-500">
+            <a href="categoria/{{categoria.code}}">
+                <p>{{ categoria.name }}</p>
+            </a>
+        </div>
+		{% empty %}
+		<p>Sem categorias registradas</p>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %}
