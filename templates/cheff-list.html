@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block content %}
+<div class="w-screen p-4">
+	<h1 class="font-bold text-2xl mb-5">Cozinheiros</h1>
+	<div class="flex gap-6 flex-wrap">
+		{% for cheff in cheffs %}
+		<div class="rounded p-2 text-white bg-gray-500">
+            <a href="cozinheiro/{{cheff.cpf}}">
+                <p>{{ cheff.first_name }} {{ cheff.last_name }}</p>
+            </a>
+        </div>
+		{% empty %}
+		<p>Sem cozinheiros registrados</p>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %}
