@@ -2,7 +2,7 @@ from typing import Any
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
 from django.apps import apps
-from .models import Categoria, Cozinheiro
+from .models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato
 
 class Index(TemplateView):
     template_name='index.html'
@@ -24,14 +24,15 @@ class Index(TemplateView):
         models_names = []
         
         for model in my_models:
-            try:
-                name = model._meta.verbose_name
-            except AttributeError:
-                name = model.__name__
+            if model.__name__ not in ["Porcao", "Contrato"]:
+                try:
+                    name = model._meta.verbose_name
+                except AttributeError:
+                    name = model.__name__
             
-            print(name)
-            
-            models_names.append(name)
+                print(name)
+                
+                models_names.append(name)
 
         context = super().get_context_data(**kwargs)
         context['models'] = models_names
@@ -45,7 +46,7 @@ class CategoryListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        categorias = Categoria.objects.all()
+        categorias = self.model.objects.all()
         print(categorias)
         context['categorias'] = categorias
         
@@ -58,8 +59,68 @@ class CheffListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        cheffs = Cozinheiro.objects.all()
+        cheffs = self.model.objects.all()
         print(cheffs)
         context['cheffs'] = cheffs
+        
+        return context
+
+
+class TasterListView(ListView):
+    model = Degustador
+    template_name='taster-list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        return context
+
+
+class EditorListView(ListView):
+    model = Editor
+    template_name='editor-list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        return context
+
+
+class LivroListView(ListView):
+    model = Livro
+    template_name='book-list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        return context
+
+
+class IngredienteListView(ListView):
+    model = Ingrediente
+    template_name='ingredient-list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        return context
+
+
+class ReceitaListView(ListView):
+    model = Receita
+    template_name='recipe-list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        return context
+
+
+class RestauranteListView(ListView):
+    model = Restaurante
+    template_name='restaurant-list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         
         return context
