@@ -9,3 +9,6 @@ class Index(TemplateView):
         context = super().get_context_data(**kwargs)
         
         return context
+    
+def cozinheiro(request):
+    return render(request, 'cozinheiro.html')
