@@ -1,6 +1,6 @@
 from typing import Any
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView
 from django.apps import apps
 from .models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato
 
@@ -42,7 +42,7 @@ class Index(TemplateView):
 
 class CategoryListView(ListView):
     model = Categoria
-    template_name='category-list.html'
+    template_name='list/category-list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -55,7 +55,7 @@ class CategoryListView(ListView):
 
 class CheffListView(ListView):
     model = Cozinheiro
-    template_name='cheff-list.html'
+    template_name='list/cheff-list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -68,7 +68,7 @@ class CheffListView(ListView):
 
 class TasterListView(ListView):
     model = Degustador
-    template_name='taster-list.html'
+    template_name='list/taster-list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -78,7 +78,7 @@ class TasterListView(ListView):
 
 class EditorListView(ListView):
     model = Editor
-    template_name='editor-list.html'
+    template_name='list/editor-list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -88,7 +88,7 @@ class EditorListView(ListView):
 
 class LivroListView(ListView):
     model = Livro
-    template_name='book-list.html'
+    template_name='list/book-list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -98,7 +98,7 @@ class LivroListView(ListView):
 
 class IngredienteListView(ListView):
     model = Ingrediente
-    template_name='ingredient-list.html'
+    template_name='list/ingredient-list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -108,7 +108,7 @@ class IngredienteListView(ListView):
 
 class ReceitaListView(ListView):
     model = Receita
-    template_name='recipe-list.html'
+    template_name='list/recipe-list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -118,9 +118,85 @@ class ReceitaListView(ListView):
 
 class RestauranteListView(ListView):
     model = Restaurante
-    template_name='restaurant-list.html'
+    template_name='list/restaurant-list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
         return context
+
+#==============================================================
+
+class CategoryDetailView(DetailView):
+    model = Categoria
+    template_name='detail/category-detail.html'
+
+    def get_object(self, **kwargs):
+        
+        return self.model.objects.get(code=self.kwargs.get("code"))
+
+
+class CheffDetailView(DetailView):
+    model = Cozinheiro
+    template_name='detail/cheff-detail.html'
+
+    def get_object(self):
+        
+        return self.model.objects.get(cpf=self.kwargs.get("cpf"))
+
+
+class TasterDetailView(DetailView):
+    model = Degustador
+    template_name='detail/taster-detail.html'
+
+    def get_object(self):
+        
+        return self.model.objects.get(cpf=self.kwargs.get("cpf"))
+
+
+class EditorDetailView(DetailView):
+    model = Editor
+    template_name='detail/editor-detail.html'
+
+    def get_object(self):
+        
+        return self.model.objects.get(cpf=self.kwargs.get("cpf"))
+
+
+class LivroDetailView(DetailView):
+    model = Livro
+    template_name='detail/book-detail.html'
+
+    def get_object(self):
+        
+        return self.model.objects.get(isbn_code=self.kwargs.get("isbn_code"))
+
+
+class IngredienteDetailView(DetailView):
+    model = Ingrediente
+    template_name='detail/ingredient-detail.html'
+
+    def get_object(self):
+        
+        return self.model.objects.get(code=self.kwargs.get("code"))
+
+
+class ReceitaDetailView(DetailView):
+    model = Receita
+    template_name='detail/recipe-detail.html'
+
+    def get_object(self):
+        
+        return self.model.objects.get(code=self.kwargs.get("code"))
+
+
+class RestauranteDetailView(DetailView):
+    model = Restaurante
+    template_name='detail/restaurant-detail.html'
+
+    def get_object(self):
+        
+        return self.model.objects.get(code=self.kwargs.get("code"))
+
+
+#==============================================================
