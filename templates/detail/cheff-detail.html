@@ -8,6 +8,13 @@
 	{% endif %}
 	<p>{{object.cpf}}</p>
 	<p>Salário: R${{object.salary}}</p>
+	{% for recipe in recipes %}
+	<a href="/receita/{{recipe.code}}">
+		<div class="rounded p-2 text-white bg-gray-500">{{recipe.name}}</div>
+	</a>
+	{% empty %}
+	<p>Este cozinheiro não possui receitas</p>
+	{% endfor %}
 </div>
 
 {% endblock %}

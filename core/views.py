@@ -29,8 +29,6 @@ class Index(TemplateView):
                     name = model._meta.verbose_name
                 except AttributeError:
                     name = model.__name__
-            
-                print(name)
                 
                 models_names.append(name)
 
@@ -151,6 +149,14 @@ class CheffDetailView(DetailView):
     def get_object(self):
         
         return self.model.objects.get(cpf=self.kwargs.get("cpf"))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        chef = self.get_object()
+        context['recipes'] = Receita.objects.filter(chef__cpf= chef.cpf)
+        
+        return context
 
 
 class TasterDetailView(DetailView):
@@ -169,6 +175,14 @@ class EditorDetailView(DetailView):
     def get_object(self):
         
         return self.model.objects.get(cpf=self.kwargs.get("cpf"))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        editor = self.get_object()
+        context['books'] = Livro.objects.filter(editor__cpf= editor.cpf)
+        
+        return context
 
 
 class LivroDetailView(DetailView):

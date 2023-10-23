@@ -3,11 +3,8 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxLengthValidator
 from django.contrib.auth.models import User
 
-# class user:
-#     username
-#     first_name
-#     last_name
-#     email
+class CustomUser(User):
+    pass
 
 class PrimitiveModel():
     created_at = models.DateTimeField(auto_now_add=True)
@@ -23,7 +20,7 @@ class Categoria(models.Model, PrimitiveModel):
         return self.name
 
 
-class Cozinheiro(User, PrimitiveModel):
+class Cozinheiro(CustomUser, PrimitiveModel):
     class Meta:
         verbose_name = 'Cozinheiro'
         
@@ -36,7 +33,7 @@ class Cozinheiro(User, PrimitiveModel):
         return super().first_name
 
 
-class Degustador(User, PrimitiveModel):
+class Degustador(CustomUser, PrimitiveModel):
     class Meta:
         verbose_name = 'Degustador'
         verbose_name_plural  = 'Degustadores'
@@ -48,7 +45,7 @@ class Degustador(User, PrimitiveModel):
         return super().first_name
 
 
-class Editor(User, PrimitiveModel):
+class Editor(CustomUser, PrimitiveModel):
     class Meta:
         verbose_name = 'Editor'
         verbose_name_plural  = 'Editores'
@@ -63,6 +60,7 @@ class Editor(User, PrimitiveModel):
 class Livro(models.Model, PrimitiveModel):
     title = models.CharField(max_length=200, unique=True)
     isbn_code = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    editor = models.ForeignKey(Editor, on_delete=models.CASCADE)
     
     def __str__(self) -> str:
         return self.title
@@ -114,7 +112,7 @@ class Porcao(models.Model, PrimitiveModel):
 
 
 class Contrato(models.Model, PrimitiveModel):
-    chef = models.OneToOneField(Cozinheiro, on_delete=models.CASCADE)
+    chef = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     restaurant = models.OneToOneField(Restaurante, on_delete=models.CASCADE)
     
     def __str__(self) -> str:

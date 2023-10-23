@@ -1,5 +1,8 @@
 from django.urls import path, include
 from .views import Index, CategoryListView, CheffListView, TasterListView, EditorListView, LivroListView, IngredienteListView, ReceitaListView, RestauranteListView, CategoryDetailView, CheffDetailView, TasterDetailView, EditorDetailView, LivroDetailView, IngredienteDetailView, ReceitaDetailView, RestauranteDetailView
+from .seed import seed
+
+seed()
 
 urlpatterns = [
     path('', Index.as_view()),
