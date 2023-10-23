@@ -1,6 +1,17 @@
 {% extends "base.html" %} {% block content %}
-<div class="w-screen p-4 flex flex-col items-center">
-	<h1 class='font-bold'>{{object.title}}</h1>
+<div class="w-screen p-4 flex flex-col gap-3 items-center">
+	<h1 class="font-bold">{{object.title}}</h1>
+	{% if recipes %}
+	<p class='font-bold'>Receitas:</p>
+	{% endif %}
+	{% for recipe in recipes %}
+	<div class="rounded p-2 text-white bg-gray-500">
+		<a href="/receita/{{recipe.code}}">
+			<p>{{ recipe.name }}</p>
+		</a>
+	</div>
+	{% empty %}
+	<p>Sem receitas nesse livro</p>
+	{% endfor %}
 </div>
-
 {% endblock %}

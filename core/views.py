@@ -134,6 +134,14 @@ class CategoryDetailView(DetailView):
     def get_object(self, **kwargs):
         
         return self.model.objects.get(code=self.kwargs.get("code"))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        category = self.get_object()
+        context['recipes']= Receita.objects.filter(category__code= category.code)
+        
+        return context
 
 
 class CheffDetailView(DetailView):
@@ -170,6 +178,14 @@ class LivroDetailView(DetailView):
     def get_object(self):
         
         return self.model.objects.get(isbn_code=self.kwargs.get("isbn_code"))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        book = self.get_object()
+        context['recipes']= Receita.objects.filter(book__title= book.title)
+        
+        return context
 
 
 class IngredienteDetailView(DetailView):

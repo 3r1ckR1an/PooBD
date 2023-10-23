@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 
 class PrimitiveModel():
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Categoria(models.Model, PrimitiveModel):
@@ -70,6 +71,7 @@ class Livro(models.Model, PrimitiveModel):
 class Ingrediente(models.Model, PrimitiveModel):
     code = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField(max_length=200, unique=True)
+    description = models.CharField(default='')
     
     def __str__(self) -> str:
         return self.name
@@ -77,7 +79,9 @@ class Ingrediente(models.Model, PrimitiveModel):
 
 class Receita(models.Model, PrimitiveModel):
     code = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    name = models.CharField(max_length=200, unique=True)
+    name = models.CharField(max_length=200)
+    serving_amount = models.IntegerField(default=1)
+    description = models.CharField(default='')
     category = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     chef = models.OneToOneField(Cozinheiro, on_delete=models.CASCADE)
     book = models.OneToOneField(Livro, on_delete=models.CASCADE)
@@ -115,3 +119,12 @@ class Contrato(models.Model, PrimitiveModel):
     
     def __str__(self) -> str:
         return self.chef.first_name + '-' + self.restaurant.name
+
+
+class Composicao(models.Model, PrimitiveModel):
+    book = models.ForeignKey(Livro, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Receita, on_delete=models.CASCADE)
+
+
+class Validacao(models.Model, PrimitiveModel):
+    grade = models.IntegerField()
