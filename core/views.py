@@ -1,8 +1,9 @@
 from typing import Any
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, FormView
 from django.apps import apps
 from .models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato
+from .forms import AddCheffForm
 
 class Index(TemplateView):
     template_name='index.html'
@@ -24,7 +25,7 @@ class Index(TemplateView):
         models_names = []
         
         for model in my_models:
-            if model.__name__ not in ["Porcao", "Contrato"]:
+            if model.__name__ not in ["Porcao", "Contrato", "Validacao", "Composicao", "CustomUser"]:
                 try:
                     name = model._meta.verbose_name
                 except AttributeError:
@@ -230,3 +231,44 @@ class RestauranteDetailView(DetailView):
 
 
 #==============================================================
+class CategoryCreateView(CreateView):
+    model = Categoria
+    fields = ["name", "description"]
+    template_name='create/category-create.html'
+
+class CheffCreateView(CreateView):
+    model = Cozinheiro
+    form_class = AddCheffForm
+    # fields = ["username", "first_name", "last_name", "email", "salary", "cpf", "chef_name"]
+    template_name='create/cheff-create.html'
+
+
+class AddCheffView(FormView):
+    form_class = AddCheffForm
+    template_name='create/cheff-create.html'
+    success_url= '/cozinheiro'
+
+
+class TasterCreateView(CreateView):
+    pass
+
+
+class EditorCreateView(CreateView):
+    pass
+
+
+class LivroCreateView(CreateView):
+    pass
+
+
+class IngredienteCreateView(CreateView):
+    pass
+
+
+class ReceitaCreateView(CreateView):
+    pass
+
+
+class RestauranteCreateView(CreateView):
+    pass
+

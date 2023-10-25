@@ -27,21 +27,23 @@ def create_users(data):
     chefs = data[0:2]
     tasters = data[2:4]
     editors = data[4:6]
-    
-    # print(chefs)
-    # print('\n\n')
-    # print(tasters)
-    # print('\n\n')
-    # print(editors)
-    
+
     for chef in chefs:
-        Cozinheiro.objects.create(password= '123', salary= 1, first_name= chef['first_name'], last_name= chef['last_name'], cpf= chef['cpf'], username= (chef['first_name']+'_'+chef['last_name']))
+        Cozinheiro.objects.create(salary= 1, first_name= chef['first_name'], last_name= chef['last_name'], cpf= chef['cpf'], username= (chef['first_name']+'_'+chef['last_name']))
 
     for taster in tasters:
-        Degustador.objects.create(password= '123', salary= 1, first_name= taster['first_name'], last_name= taster['last_name'], cpf= taster['cpf'], username= (taster['first_name']+'_'+taster['last_name']))
+        Degustador.objects.create(salary= 1, first_name= taster['first_name'], last_name= taster['last_name'], cpf= taster['cpf'], username= (taster['first_name']+'_'+taster['last_name']))
 
     for editor in editors:
-        Editor.objects.create(password= '123', salary= 1, first_name= editor['first_name'], last_name= editor['last_name'], cpf= editor['cpf'], username= (editor['first_name']+'_'+editor['last_name']))
+        Editor.objects.create(salary= 1, first_name= editor['first_name'], last_name= editor['last_name'], cpf= editor['cpf'], username= (editor['first_name']+'_'+editor['last_name']))
+
+def create_ingredients(data):
+    for ingredient in data:
+        new_ingredient = Ingrediente.objects.create(name=ingredient['name'], description=ingredient['description'])
+
+def create_restaurants(data):
+    for restaurant in data:
+        new_restaurant = Restaurante.objects.create(name= restaurant['name'])
 
 
 def seed():
@@ -53,9 +55,13 @@ def seed():
         if Categoria.objects.count() == 0:
             create_categories(data['categories'])
 
-        # if Cozinheiro.objects.count() == 0 or Degustador.objects.count() == 0 or Editor.objects.count() == 0:
-        # if False:
-        if True:
+        if Cozinheiro.objects.count() == 0 or Degustador.objects.count() == 0 or Editor.objects.count() == 0:
             create_users(data['people'])
-
-# seed()
+            
+        if Ingrediente.objects.count() == 0:
+            create_ingredients(data['ingredients'])
+            
+        if Restaurante.objects.count()  == 0:
+            create_restaurants(data['restaurants'])
+    
+    pass

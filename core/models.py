@@ -1,10 +1,13 @@
 import uuid
 from django.db import models
-from django.core.validators import MinValueValidator, MaxLengthValidator
-from django.contrib.auth.models import User
+from django.urls import reverse
+from django.contrib.auth.models import User, AbstractBaseUser, AbstractUser
 
-class CustomUser(User):
-    pass
+class CustomUser(models.Model):
+    first_name = models.CharField(blank= True)
+    last_name = models.CharField(blank= True)
+    username = models.CharField()
+    email = models.EmailField(blank= True)
 
 class PrimitiveModel():
     created_at = models.DateTimeField(auto_now_add=True)
@@ -15,6 +18,9 @@ class Categoria(models.Model, PrimitiveModel):
     code = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField()
     description = models.CharField()
+    
+    def get_absolute_url(self):
+        return reverse('category-detail', args=[str(self.code)])
     
     def __str__(self) -> str:
         return self.name
@@ -29,6 +35,9 @@ class Cozinheiro(CustomUser, PrimitiveModel):
     salary = models.DecimalField(max_digits=8, decimal_places=2)
     cpf = models.CharField(max_length=11, unique=True)
     
+    def get_absolute_url(self):
+        return reverse('cheff-detail', args=[str(self.cpf)])
+    
     def __str__(self) -> str:
         return super().first_name
 
@@ -40,6 +49,9 @@ class Degustador(CustomUser, PrimitiveModel):
         
     salary = models.DecimalField(max_digits=8, decimal_places=2)
     cpf = models.CharField(max_length=11, unique=True)
+    
+    def get_absolute_url(self):
+        return reverse('taster-detail', args=[str(self.code)])
     
     def __str__(self) -> str:
         return super().first_name
@@ -53,6 +65,9 @@ class Editor(CustomUser, PrimitiveModel):
     salary = models.DecimalField(max_digits=8, decimal_places=2)
     cpf = models.CharField(max_length=11, unique=True)
     
+    def get_absolute_url(self):
+        return reverse('editor-detail', args=[str(self.code)])
+    
     def __str__(self) -> str:
         return super().first_name
 
@@ -62,6 +77,9 @@ class Livro(models.Model, PrimitiveModel):
     isbn_code = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     editor = models.ForeignKey(Editor, on_delete=models.CASCADE)
     
+    def get_absolute_url(self):
+        return reverse('livro-detail', args=[str(self.code)])
+    
     def __str__(self) -> str:
         return self.title
 
@@ -70,6 +88,9 @@ class Ingrediente(models.Model, PrimitiveModel):
     code = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField(max_length=200, unique=True)
     description = models.CharField(default='')
+    
+    def get_absolute_url(self):
+        return reverse('ingrediente-detail', args=[str(self.code)])
     
     def __str__(self) -> str:
         return self.name
@@ -84,6 +105,9 @@ class Receita(models.Model, PrimitiveModel):
     chef = models.OneToOneField(Cozinheiro, on_delete=models.CASCADE)
     book = models.OneToOneField(Livro, on_delete=models.CASCADE)
     
+    def get_absolute_url(self):
+        return reverse('receita-detail', args=[str(self.code)])
+    
     def __str__(self) -> str:
         return self.name
 
@@ -92,6 +116,9 @@ class Receita(models.Model, PrimitiveModel):
 class Restaurante(models.Model, PrimitiveModel):
     code = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField(max_length=200, unique=True)
+    
+    def get_absolute_url(self):
+        return reverse('restaurante-detail', args=[str(self.code)])
     
     def __str__(self) -> str:
         return self.name
@@ -126,3 +153,5 @@ class Composicao(models.Model, PrimitiveModel):
 
 class Validacao(models.Model, PrimitiveModel):
     grade = models.IntegerField()
+    taster = models.ForeignKey(Degustador, on_delete= models.CASCADE)
+    recipe = models.ForeignKey(Receita, on_delete= models.CASCADE)
