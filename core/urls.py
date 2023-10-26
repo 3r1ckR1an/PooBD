@@ -1,7 +1,8 @@
 from django.urls import path, include
 from .views import Index, CategoryListView, CheffListView, TasterListView, EditorListView, LivroListView, IngredienteListView, ReceitaListView, RestauranteListView
 from .views import CategoryDetailView, CheffDetailView, TasterDetailView, EditorDetailView, LivroDetailView, IngredienteDetailView, ReceitaDetailView, RestauranteDetailView
-from .views import CategoryCreateView, CheffCreateView, TasterCreateView, EditorCreateView, LivroCreateView, IngredienteCreateView, ReceitaCreateView, RestauranteCreateView, AddCheffView
+from .views import CategoryCreateView, UserCreateView, TasterCreateView, EditorCreateView, LivroCreateView, IngredienteCreateView, ReceitaCreateView, RestauranteCreateView
+from .views import CheffUpdateView
 from .seed import seed
 
 seed()
@@ -19,14 +20,15 @@ urlpatterns = [
     path('restaurante', RestauranteListView.as_view()),
     
     path('categoria/criar', CategoryCreateView.as_view()),
-    path('cozinheiro/criar', CheffCreateView.as_view()),
-    # path('cozinheiro/criar', AddCheffView.as_view()),
-    # path('degustador/criar', TasterCreateView.as_view()),
-    # path('editor/criar', EditorCreateView.as_view()),
-    # path('livro/criar', LivroCreateView.as_view()),
-    # path('ingrediente/criar', IngredienteCreateView.as_view()),
-    # path('receita/criar', ReceitaCreateView.as_view()),
-    # path('restaurante/criar', RestauranteCreateView.as_view()),
+    path('cozinheiro/criar', UserCreateView.as_view()),
+    path('degustador/criar', TasterCreateView.as_view()),
+    path('editor/criar', EditorCreateView.as_view()),
+    path('livro/criar', LivroCreateView.as_view()),
+    path('ingrediente/criar', IngredienteCreateView.as_view()),
+    path('receita/criar', ReceitaCreateView.as_view()),
+    path('restaurante/criar', RestauranteCreateView.as_view()),
+    
+    path('cozinheiro/editar', CheffUpdateView.as_view()),
     
     path('categoria/<uuid:code>', CategoryDetailView.as_view(), name= "category-detail"),
     path('cozinheiro/<str:cpf>', CheffDetailView.as_view(), name= "cheff-detail"),

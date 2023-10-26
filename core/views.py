@@ -1,9 +1,9 @@
 from typing import Any
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, DetailView, CreateView, FormView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, FormView, UpdateView
 from django.apps import apps
 from .models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato
-from .forms import AddCheffForm
+from .forms import AddCheffForm, AddTasterForm, AddEditorForm, AddBookForm, AddIngredientForm, AddRecipeForm, AddRestaurantForm
 
 class Index(TemplateView):
     template_name='index.html'
@@ -236,39 +236,51 @@ class CategoryCreateView(CreateView):
     fields = ["name", "description"]
     template_name='create/category-create.html'
 
-class CheffCreateView(CreateView):
+class UserCreateView(CreateView):
     model = Cozinheiro
     form_class = AddCheffForm
     # fields = ["username", "first_name", "last_name", "email", "salary", "cpf", "chef_name"]
-    template_name='create/cheff-create.html'
-
-
-class AddCheffView(FormView):
-    form_class = AddCheffForm
-    template_name='create/cheff-create.html'
-    success_url= '/cozinheiro'
+    template_name='create/user-create.html'
 
 
 class TasterCreateView(CreateView):
-    pass
+    model = Degustador
+    form_class = AddTasterForm
+    template_name='create/user-create.html'
 
 
 class EditorCreateView(CreateView):
-    pass
+    model = Editor
+    form_class = AddEditorForm
+    template_name='create/user-create.html'
 
 
 class LivroCreateView(CreateView):
-    pass
+    model = Livro
+    form_class = AddBookForm
+    template_name='create/user-create.html'
 
 
 class IngredienteCreateView(CreateView):
-    pass
+    model = Ingrediente
+    form_class = AddIngredientForm
+    template_name='create/ingredient-create.html'
 
 
 class ReceitaCreateView(CreateView):
-    pass
+    model = Receita
+    form_class = AddRecipeForm
+    template_name='create/recipe-create.html'
 
 
 class RestauranteCreateView(CreateView):
-    pass
+    model = Restaurante
+    form_class = AddRestaurantForm
+    template_name='create/restaurant-create.html'
 
+
+#==============================================================
+class CheffUpdateView(UpdateView):
+    model = Cozinheiro
+    fields = ["username", "first_name", "last_name", "email", "salary", "cpf", "chef_name"]
+    template_name='create/restaurant-create.html'

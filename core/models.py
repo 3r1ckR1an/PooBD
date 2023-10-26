@@ -6,7 +6,6 @@ from django.contrib.auth.models import User, AbstractBaseUser, AbstractUser
 class CustomUser(models.Model):
     first_name = models.CharField(blank= True)
     last_name = models.CharField(blank= True)
-    username = models.CharField()
     email = models.EmailField(blank= True)
 
 class PrimitiveModel():

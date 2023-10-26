@@ -1,4 +1,4 @@
-superuser:
+python manage.py createsuperuser
 email@mail.com
 caio
 123
