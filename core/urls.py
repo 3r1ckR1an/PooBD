@@ -3,6 +3,7 @@ from .views import Index, CategoryListView, CheffListView, TasterListView, Edito
 from .views import CategoryDetailView, CheffDetailView, TasterDetailView, EditorDetailView, LivroDetailView, IngredienteDetailView, ReceitaDetailView, RestauranteDetailView
 from .views import CategoryCreateView, UserCreateView, TasterCreateView, EditorCreateView, LivroCreateView, IngredienteCreateView, ReceitaCreateView, RestauranteCreateView
 from .views import CheffUpdateView
+from .views import ChefDeleteView
 from .seed import seed
 
 seed()
@@ -11,9 +12,9 @@ urlpatterns = [
     path('', Index.as_view()),
     
     path('categoria', CategoryListView.as_view()),
-    path('cozinheiro', CheffListView.as_view()),
-    path('degustador', TasterListView.as_view()),
-    path('editor', EditorListView.as_view()),
+    path('cozinheiro', CheffListView.as_view(), name= "cheff-list"),
+    path('degustador', TasterListView.as_view(), name= "taster-list"),
+    path('editor', EditorListView.as_view(), name= "editor-list"),
     path('livro', LivroListView.as_view()),
     path('ingrediente', IngredienteListView.as_view()),
     path('receita', ReceitaListView.as_view()),
@@ -27,6 +28,8 @@ urlpatterns = [
     path('ingrediente/criar', IngredienteCreateView.as_view()),
     path('receita/criar', ReceitaCreateView.as_view()),
     path('restaurante/criar', RestauranteCreateView.as_view()),
+    
+    path('cozinheiro/remover/<int:pk>', ChefDeleteView.as_view()),
     
     path('cozinheiro/editar/<str:cpf>', CheffUpdateView.as_view()),
     

@@ -44,6 +44,10 @@ class AddBookForm(forms.ModelForm):
     class Meta:
         model = Livro
         fields = ("title", "editor")
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'custom-class'}),
+            'editor': forms.Select(attrs={'class': 'custom-class'}),
+        }
 
 
 class AddIngredientForm(forms.ModelForm):
@@ -60,6 +64,14 @@ class AddRecipeForm(forms.ModelForm):
     class Meta:
         model = Receita
         fields = ("name", "serving_amount", "description", "category", "chef", "book")
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'custom-class'}),
+            'serving_amount': forms.TextInput(attrs={'class': 'custom-class'}),
+            'description': forms.TextInput(attrs={'class': 'custom-class'}),
+            'category': forms.Select(attrs={'class': 'custom-class'}),
+            'chef': forms.Select(attrs={'class': 'custom-class'}),
+            'book': forms.Select(attrs={'class': 'custom-class'}),
+        }
 
 
 class AddRestaurantForm(forms.ModelForm):

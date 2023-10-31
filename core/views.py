@@ -1,9 +1,10 @@
 from typing import Any
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, DetailView, CreateView, FormView, UpdateView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, FormView, UpdateView, DeleteView
 from django.apps import apps
-from .models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato
+from .models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato, CustomUser
 from .forms import AddCheffForm, AddTasterForm, AddEditorForm, AddBookForm, AddIngredientForm, AddRecipeForm, AddRestaurantForm, UpdateCheffForm
+from django.urls import reverse_lazy
 
 class Index(TemplateView):
     template_name='index.html'
@@ -288,3 +289,21 @@ class CheffUpdateView(UpdateView):
     def get_object(self, queryset=None):
         cpf = self.kwargs.get('cpf')
         return self.model.objects.get(cpf=cpf)
+
+
+#==============================================================
+class UserDeleteBaseView:
+    model = CustomUser
+    template_name = 'delete/confirm_deletion.html'
+
+
+class ChefDeleteView(UserDeleteBaseView, DeleteView):
+    success_url = reverse_lazy('cheff-list')
+
+
+class TasterDeleteView(DeleteView, UserDeleteBaseView):
+    success_url = reverse_lazy('/degustador')
+
+
+class EditorDeleteView(DeleteView, UserDeleteBaseView):
+    success_url = reverse_lazy('/editor')

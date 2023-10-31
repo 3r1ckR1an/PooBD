@@ -2,9 +2,10 @@
 <div class="w-screen p-4 flex flex-col items-center">
 	<h1 class='font-bold'>{{object.first_name}} {{object.last_name}}</h1>
 	<p>Email: {{object.email}}</p>
-	<p>CPF: {{object.cpf}}</p>
-	<p>Salário: R${{object.salary}}</p>
-	<a class='font-bold rounded-md border-gray-400 border-2 p-1' href="degustador/editar/{{object.code}}">Editar</a>
+    <form method="post">
+        {% csrf_token %}
+        <input class='font-bold rounded-md border-gray-400 border-2 p-1' type="submit" value="Excluir">
+      </form>
 </div>
 
 {% endblock %}
