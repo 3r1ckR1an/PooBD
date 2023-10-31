@@ -83,6 +83,9 @@ DATABASES = {
         'PASSWORD': '123456',
         'HOST': '127.0.0.1', 
         'PORT': '5432',
+        'OPTIONS': {
+            'client_encoding': 'UTF8',
+        }
     }
 }
 
@@ -110,6 +113,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+
+DEFAULT_CHARSET = 'utf-8'
 
 TIME_ZONE = 'UTC'
 

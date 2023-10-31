@@ -11,7 +11,11 @@
         {%endfor%}
     </div>
 </div>
+<script>
+    const link = document.getElementById('pagina-inicial-link')
 
+    if(link !== null) link.remove();
+</script>
 {% comment %}
 <ul>
 	{% for nome in lista_de_nomes %}

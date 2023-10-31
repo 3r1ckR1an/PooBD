@@ -19,6 +19,17 @@ class AddCheffForm(forms.ModelForm):
         model = Cozinheiro
     
     
+class UpdateCheffForm(forms.ModelForm):
+    class Meta(BaseUserFormMeta):
+        model = Cozinheiro
+        
+        fields = BaseUserFormMeta.fields + ('chef_name',)
+        widgets = {
+        'chef_name': forms.TextInput(attrs={'class': 'custom-class'}),
+        **BaseUserFormMeta.widgets
+    }
+    
+    
 class AddTasterForm(forms.ModelForm):
     class Meta(BaseUserFormMeta):
         model = Degustador

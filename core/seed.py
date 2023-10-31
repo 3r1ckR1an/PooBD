@@ -49,7 +49,7 @@ def create_restaurants(data):
 def seed():
     # system('clear')
     delete_all()
-    with open('data.json') as json_file:
+    with open('data.json', 'r', encoding='utf-8') as json_file:
         data = json.load(json_file)
 
         if Categoria.objects.count() == 0:
@@ -64,4 +64,3 @@ def seed():
         if Restaurante.objects.count()  == 0:
             create_restaurants(data['restaurants'])
     
-    pass

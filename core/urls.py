@@ -28,7 +28,7 @@ urlpatterns = [
     path('receita/criar', ReceitaCreateView.as_view()),
     path('restaurante/criar', RestauranteCreateView.as_view()),
     
-    path('cozinheiro/editar', CheffUpdateView.as_view()),
+    path('cozinheiro/editar/<str:cpf>', CheffUpdateView.as_view()),
     
     path('categoria/<uuid:code>', CategoryDetailView.as_view(), name= "category-detail"),
     path('cozinheiro/<str:cpf>', CheffDetailView.as_view(), name= "cheff-detail"),

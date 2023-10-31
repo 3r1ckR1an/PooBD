@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, FormView, UpdateView
 from django.apps import apps
 from .models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato
-from .forms import AddCheffForm, AddTasterForm, AddEditorForm, AddBookForm, AddIngredientForm, AddRecipeForm, AddRestaurantForm
+from .forms import AddCheffForm, AddTasterForm, AddEditorForm, AddBookForm, AddIngredientForm, AddRecipeForm, AddRestaurantForm, UpdateCheffForm
 
 class Index(TemplateView):
     template_name='index.html'
@@ -282,5 +282,9 @@ class RestauranteCreateView(CreateView):
 #==============================================================
 class CheffUpdateView(UpdateView):
     model = Cozinheiro
-    fields = ["username", "first_name", "last_name", "email", "salary", "cpf", "chef_name"]
+    form_class = UpdateCheffForm
     template_name='create/restaurant-create.html'
+    
+    def get_object(self, queryset=None):
+        cpf = self.kwargs.get('cpf')
+        return self.model.objects.get(cpf=cpf)
