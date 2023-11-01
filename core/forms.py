@@ -14,6 +14,16 @@ class BaseUserFormMeta:
     }
     
     
+class AddCategoryForm(forms.ModelForm):
+    class Meta:
+        model = Categoria
+        fields = ('name', 'description',)
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'custom-class'}),
+            'description': forms.TextInput(attrs={'class': 'custom-class'}),
+        }
+    
+    
 class AddCheffForm(forms.ModelForm):
     class Meta(BaseUserFormMeta):
         model = Cozinheiro
@@ -33,11 +43,19 @@ class UpdateCheffForm(forms.ModelForm):
 class AddTasterForm(forms.ModelForm):
     class Meta(BaseUserFormMeta):
         model = Degustador
+
+
+class UpdateTasterForm(AddTasterForm):
+    pass
     
     
 class AddEditorForm(forms.ModelForm):
     class Meta(BaseUserFormMeta):
         model = Editor
+
+
+class UpdateEditorForm(AddEditorForm):
+    pass
 
 
 class AddBookForm(forms.ModelForm):

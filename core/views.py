@@ -3,7 +3,8 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, FormView, UpdateView, DeleteView
 from django.apps import apps
 from .models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato, CustomUser
-from .forms import AddCheffForm, AddTasterForm, AddEditorForm, AddBookForm, AddIngredientForm, AddRecipeForm, AddRestaurantForm, UpdateCheffForm
+from .forms import AddCheffForm, AddTasterForm, AddEditorForm, AddBookForm, AddIngredientForm, AddRecipeForm, AddRestaurantForm, AddCategoryForm
+from .forms import UpdateCheffForm, UpdateTasterForm, UpdateEditorForm
 from django.urls import reverse_lazy
 
 class Index(TemplateView):
@@ -132,8 +133,9 @@ class CategoryDetailView(DetailView):
     template_name='detail/category-detail.html'
 
     def get_object(self, **kwargs):
+        code = self.kwargs.get("code")
         
-        return self.model.objects.get(code=self.kwargs.get("code"))
+        return self.model.objects.get(code= code)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -234,7 +236,7 @@ class RestauranteDetailView(DetailView):
 #==============================================================
 class CategoryCreateView(CreateView):
     model = Categoria
-    fields = ["name", "description"]
+    form_class = AddCategoryForm
     template_name='create/category-create.html'
 
 class UserCreateView(CreateView):
@@ -284,11 +286,56 @@ class RestauranteCreateView(CreateView):
 class CheffUpdateView(UpdateView):
     model = Cozinheiro
     form_class = UpdateCheffForm
-    template_name='create/restaurant-create.html'
+    template_name='create/user-create.html'
     
     def get_object(self, queryset=None):
         cpf = self.kwargs.get('cpf')
-        return self.model.objects.get(cpf=cpf)
+        res = self.model.objects.get(cpf=cpf)
+        return res
+
+
+class TasterUpdateView(UpdateView):
+    model = Degustador
+    form_class = UpdateTasterForm
+    template_name='create/user-create.html'
+    
+    def get_object(self, queryset=None):
+        cpf = self.kwargs.get('cpf')
+        res = self.model.objects.get(cpf=cpf)
+        return res
+
+
+class EditorUpdateView(UpdateView):
+    model = Editor
+    form_class = UpdateEditorForm
+    template_name='create/user-create.html'
+    
+    def get_object(self, queryset=None):
+        cpf = self.kwargs.get('cpf')
+        res = self.model.objects.get(cpf=cpf)
+        return res
+
+
+class CategoryUpdateView(UpdateView):
+    model = Categoria
+    form_class = AddCategoryForm
+    template_name='create/category-create.html'
+    
+    def get_object(self, queryset=None):
+        code = self.kwargs.get('code')
+        res = self.model.objects.get(code=code)
+        return res
+
+
+class BookUpdateView(UpdateView):
+    model = Livro
+    form_class = AddBookForm
+    template_name='create/book-create.html'
+    
+    def get_object(self, queryset=None):
+        code = self.kwargs.get('code')
+        res = self.model.objects.get(code=code)
+        return res
 
 
 #==============================================================
