@@ -2,7 +2,7 @@ from django.urls import path, include
 from .views import Index, CategoryListView, CheffListView, TasterListView, EditorListView, LivroListView, IngredienteListView, ReceitaListView, RestauranteListView
 from .views import CategoryDetailView, CheffDetailView, TasterDetailView, EditorDetailView, LivroDetailView, IngredienteDetailView, ReceitaDetailView, RestauranteDetailView
 from .views import CategoryCreateView, UserCreateView, TasterCreateView, EditorCreateView, LivroCreateView, IngredienteCreateView, ReceitaCreateView, RestauranteCreateView
-from .views import CheffUpdateView, TasterUpdateView, EditorUpdateView, CategoryUpdateView
+from .views import CheffUpdateView, TasterUpdateView, EditorUpdateView, CategoryUpdateView, BookUpdateView
 from .views import ChefDeleteView
 from .seed import seed
 
@@ -35,7 +35,7 @@ urlpatterns = [
     path('cozinheiro/editar/<str:cpf>', CheffUpdateView.as_view()),
     path('degustador/editar/<str:cpf>', TasterUpdateView.as_view()),
     path('editor/editar/<str:cpf>', EditorUpdateView.as_view()),
-    path('livro/editar/<str:cpf>', EditorUpdateView.as_view()),
+    path('livro/editar/<str:isbn_code>', BookUpdateView.as_view()),
     
     path('categoria/<uuid:code>', CategoryDetailView.as_view(), name= "category-detail"),
     path('cozinheiro/<str:cpf>', CheffDetailView.as_view(), name= "cheff-detail"),

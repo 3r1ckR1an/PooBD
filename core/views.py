@@ -261,7 +261,7 @@ class EditorCreateView(CreateView):
 class LivroCreateView(CreateView):
     model = Livro
     form_class = AddBookForm
-    template_name='create/user-create.html'
+    template_name='create/book-create.html'
 
 
 class IngredienteCreateView(CreateView):
@@ -336,6 +336,11 @@ class BookUpdateView(UpdateView):
         code = self.kwargs.get('code')
         res = self.model.objects.get(code=code)
         return res
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        return context
 
 
 #==============================================================
