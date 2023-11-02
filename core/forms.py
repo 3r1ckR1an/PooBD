@@ -78,6 +78,10 @@ class AddIngredientForm(forms.ModelForm):
     }
 
 
+class UpdateIngredientForm(AddIngredientForm):
+    pass
+
+
 class AddRecipeForm(forms.ModelForm):
     class Meta:
         model = Receita
@@ -92,6 +96,10 @@ class AddRecipeForm(forms.ModelForm):
         }
 
 
+class UpdateRecipeForm(AddRecipeForm):
+    pass
+
+
 class AddRestaurantForm(forms.ModelForm):
     class Meta:
         model = Restaurante
@@ -99,3 +107,7 @@ class AddRestaurantForm(forms.ModelForm):
         widgets = {
         'name': forms.TextInput(attrs={'class': 'custom-class'}),
     }
+
+
+class UpdateRestaurantForm(AddRestaurantForm):
+    pass

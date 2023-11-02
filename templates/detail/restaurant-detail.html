@@ -1,7 +1,8 @@
 {% extends "base.html" %} {% block content %}
 <div class="w-screen p-4 flex flex-col items-center">
 	<h1 class='font-bold'>{{object.name}}</h1>
-	<a class='font-bold rounded-md border-gray-400 border-2 p-1' href="restaurante/editar/{{object.code}}">Editar</a>
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1 hover:cursor-pointer' href="/restaurante/editar/{{object.code}}">Editar</a>
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1 hover:cursor-pointer' href="/restaurante/remover/{{object.code}}">Remover</a>
 </div>
 
 {% endblock %}

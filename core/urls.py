@@ -2,11 +2,11 @@ from django.urls import path, include
 from .views import Index, CategoryListView, CheffListView, TasterListView, EditorListView, LivroListView, IngredienteListView, ReceitaListView, RestauranteListView
 from .views import CategoryDetailView, CheffDetailView, TasterDetailView, EditorDetailView, LivroDetailView, IngredienteDetailView, ReceitaDetailView, RestauranteDetailView
 from .views import CategoryCreateView, UserCreateView, TasterCreateView, EditorCreateView, LivroCreateView, IngredienteCreateView, ReceitaCreateView, RestauranteCreateView
-from .views import CheffUpdateView, TasterUpdateView, EditorUpdateView, CategoryUpdateView, BookUpdateView
-from .views import ChefDeleteView
+from .views import CheffUpdateView, TasterUpdateView, EditorUpdateView, CategoryUpdateView, BookUpdateView, IngredientUpdateView, RestaurantUpdateView, RecipeUpdateView
+from .views import ChefDeleteView, TasterDeleteView, EditorDeleteView, CategoryDeleteView, IngredientDeleteView, RecipeDeleteView, RestaurantDeleteView
 from .seed import seed
 
-seed()
+# seed()
 
 urlpatterns = [
     path('', Index.as_view()),
@@ -30,12 +30,21 @@ urlpatterns = [
     path('restaurante/criar', RestauranteCreateView.as_view()),
     
     path('cozinheiro/remover/<int:pk>', ChefDeleteView.as_view()),
+    path('degustador/remover/<int:pk>', TasterDeleteView.as_view()),
+    path('editor/remover/<int:pk>', EditorDeleteView.as_view()),
+    path('categoria/remover/<str:code>', CategoryDeleteView.as_view()),
+    path('ingrediente/remover/<str:code>', IngredientDeleteView.as_view()),
+    path('receita/remover/<str:code>', RecipeDeleteView.as_view()),
+    path('restaurante/remover/<str:code>', RestaurantDeleteView.as_view()),
     
     path('categoria/editar/<uuid:code>', CategoryUpdateView.as_view()),
     path('cozinheiro/editar/<str:cpf>', CheffUpdateView.as_view()),
     path('degustador/editar/<str:cpf>', TasterUpdateView.as_view()),
     path('editor/editar/<str:cpf>', EditorUpdateView.as_view()),
     path('livro/editar/<str:isbn_code>', BookUpdateView.as_view()),
+    path('ingrediente/editar/<str:code>', IngredientUpdateView.as_view()),
+    path('receita/editar/<str:code>', RestaurantUpdateView.as_view()),
+    path('restaurante/editar/<str:code>', RecipeUpdateView.as_view()),
     
     path('categoria/<uuid:code>', CategoryDetailView.as_view(), name= "category-detail"),
     path('cozinheiro/<str:cpf>', CheffDetailView.as_view(), name= "cheff-detail"),
