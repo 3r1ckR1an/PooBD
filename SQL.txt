@@ -1,0 +1,90 @@
+-- Tabela COZINHEIROS
+CREATE TABLE COZINHEIROS (
+    Nome_coz VARCHAR(80) NOT NULL,
+    Nome_fantasia VARCHAR(80) NOT NULL,
+    Dt_contrato_coz DATE NOT NULL,
+    Salario_coz DECIMAL(8, 2),
+    cpf_coz BIGINT NOT NULL,
+    PRIMARY KEY (cpf_coz)
+);
+
+-- Tabela DEGUSTADORES
+CREATE TABLE DEGUSTADORES (
+    Nome_deg VARCHAR(80) NOT NULL,
+    Cpf_deg BIGINT NOT NULL,
+    Dt_contrato_deg DATE NOT NULL,
+    Salario_deg DECIMAL(8, 2),
+    PRIMARY KEY (Cpf_deg)
+);
+
+-- Tabela EDITORES
+CREATE TABLE EDITORES (
+    Nome_edit VARCHAR(80) NOT NULL,
+    Cpf_edit BIGINT NOT NULL,
+    Dt_contrato_edit DATE NOT NULL,
+    Salario_edit DECIMAL(8, 2),
+    PRIMARY KEY (Cpf_edit)
+);
+
+-- Tabela LIVROS
+CREATE TABLE LIVROS (
+    Titulo_livro VARCHAR(200) NOT NULL,
+    ISBN INT NOT NULL,
+    PRIMARY KEY (ISBN)
+);
+
+-- Tabela CATEGORIA_RECEITA
+CREATE TABLE CATEGORIA_RECEITA (
+    Cod_cat_rec INT NOT NULL,
+    Desc_cat_rec VARCHAR(40) NOT NULL,
+    PRIMARY KEY (Cod_cat_rec)
+);
+
+-- Tabela RECEITAS
+CREATE TABLE RECEITAS (
+    Cod_rec INT NOT NULL,
+    Nome_rec VARCHAR(80) NOT NULL,
+    Dt_criacao_rec DATE NOT NULL,
+    Cod_categoria_rec INT NOT NULL,
+    Cpf_coz INT NOT NULL,
+    ISBN_rec INT NOT NULL,
+    PRIMARY KEY (Cod_rec),
+    FOREIGN KEY (Cod_categoria_rec) REFERENCES CATEGORIA_RECEITA(Cod_cat_rec),
+    FOREIGN KEY (Cpf_coz) REFERENCES COZINHEIROS(cpf_coz),
+    FOREIGN KEY (ISBN_rec) REFERENCES LIVROS(ISBN)
+);
+
+-- Tabela RESTAURANTES
+CREATE TABLE RESTAURANTES (
+    Nome_rest VARCHAR(80) NOT NULL,
+    Cod_rest INT NOT NULL,
+    PRIMARY KEY (Cod_rest)
+);
+
+-- Tabela INGREDIENTES
+CREATE TABLE INGREDIENTES (
+    Cod_ingred INT NOT NULL,
+    Nome_ingred VARCHAR(40) NOT NULL,
+    PRIMARY KEY (Cod_ingred)
+);
+
+-- Tabela INGREDIENTES_RECEITAS
+CREATE TABLE INGREDIENTES_RECEITAS (
+    Cod_rec_ingrec INT NOT NULL,
+    Cod_ing_ingrec INT NOT NULL,
+    Quant_ingrec DECIMAL(4, 2) NOT NULL,
+    Med_ingrec VARCHAR(10) NOT NULL,
+    PRIMARY KEY (Cod_rec_ingrec, Cod_ing_ingrec),
+    FOREIGN KEY (Cod_rec_ingrec) REFERENCES RECEITAS(Cod_rec),
+    FOREIGN KEY (Cod_ing_ingrec) REFERENCES INGREDIENTES(Cod_ingred)
+);
+
+-- Tabela RESTAURANTES_COZINHEIRO
+CREATE TABLE RESTAURANTES_COZINHEIRO (
+    Cod_coz_restcoz BIGINT NOT NULL,
+    Cod_rest_restcoz INT NOT NULL,
+    Dt_contratacao DATE NOT NULL,
+    PRIMARY KEY (Cod_coz_restcoz, Cod_rest_restcoz),
+    FOREIGN KEY (Cod_coz_restcoz) REFERENCES COZINHEIROS(cpf_coz),
+    FOREIGN KEY (Cod_rest_restcoz) REFERENCES RESTAURANTES(Cod_rest)
+);
