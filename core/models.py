@@ -50,7 +50,7 @@ class Degustador(CustomUser, PrimitiveModel):
     cpf = models.CharField(max_length=11, unique=True)
     
     def get_absolute_url(self):
-        return reverse('taster-detail', args=[str(self.code)])
+        return reverse('taster-detail', args=[str(self.cpf)])
     
     def __str__(self) -> str:
         return super().first_name
@@ -65,7 +65,7 @@ class Editor(CustomUser, PrimitiveModel):
     cpf = models.CharField(max_length=11, unique=True)
     
     def get_absolute_url(self):
-        return reverse('editor-detail', args=[str(self.code)])
+        return reverse('editor-detail', args=[str(self.cpf)])
     
     def __str__(self) -> str:
         return super().first_name
@@ -77,7 +77,7 @@ class Livro(models.Model, PrimitiveModel):
     editor = models.ForeignKey(Editor, on_delete=models.CASCADE)
     
     def get_absolute_url(self):
-        return reverse('livro-detail', args=[str(self.code)])
+        return reverse('livro-detail', args=[str(self.isbn_code)])
     
     def __str__(self) -> str:
         return self.title
