@@ -11,7 +11,7 @@ from .seed import seed
 urlpatterns = [
     path('', Index.as_view()),
     
-    path('categoria', CategoryListView.as_view()),
+    path('categoria', CategoryListView.as_view(), name= 'category-list'),
     path('cozinheiro', CheffListView.as_view(), name= "cheff-list"),
     path('degustador', TasterListView.as_view(), name= "taster-list"),
     path('editor', EditorListView.as_view(), name= "editor-list"),

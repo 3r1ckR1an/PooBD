@@ -12,11 +12,11 @@ class ChefDeleteView(UserDeleteBaseView, DeleteView):
 
 
 class TasterDeleteView(UserDeleteBaseView):
-    success_url = reverse_lazy('/degustador')
+    success_url = reverse_lazy('taster-list')
 
 
 class EditorDeleteView(UserDeleteBaseView):
-    success_url = reverse_lazy('/editor')
+    success_url = reverse_lazy('editor-list')
 
 
 class ObjectDeleteBaseView(DeleteView):
