@@ -2,7 +2,7 @@ from typing import Any
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
 from django.apps import apps
-from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante
+from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Contrato
 
 class Index(TemplateView):
     template_name='index.html'
@@ -24,7 +24,7 @@ class Index(TemplateView):
         models_names = []
         
         for model in my_models:
-            if model.__name__ not in ["Porcao", "Contrato", "Validacao", "Composicao", "CustomUser"]:
+            if model.__name__ not in ["Porcao", "Validacao", "Composicao", "CustomUser"]:
                 try:
                     name = model._meta.verbose_name
                 except AttributeError:
@@ -47,6 +47,17 @@ class CategoryListView(ListView):
         categorias = self.model.objects.all()
         print(categorias)
         context['categorias'] = categorias
+        
+        return context
+
+
+class ContractListView(ListView):
+    model = Contrato
+    template_name='list/contract-list.html'
+    success_url= 'contract-list'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         
         return context
 

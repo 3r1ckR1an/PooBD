@@ -1,7 +1,8 @@
 from django.views.generic import CreateView
+from django.shortcuts import render, redirect
 from django.apps import apps
 from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato, CustomUser
-from ..forms import AddCheffForm, AddTasterForm, AddEditorForm, AddBookForm, AddIngredientForm, AddRecipeForm, AddRestaurantForm, AddCategoryForm
+from ..forms import AddCheffForm, AddTasterForm, AddEditorForm, AddBookForm, AddIngredientForm, AddRecipeForm, AddRestaurantForm, AddCategoryForm, CreateContractForm
 
 class CategoryCreateView(CreateView):
     model = Categoria
@@ -49,3 +50,16 @@ class RestauranteCreateView(CreateView):
     model = Restaurante
     form_class = AddRestaurantForm
     template_name='create/restaurant-create.html'
+
+
+def create_contract(request):
+    if request.method == 'POST':
+        form = CreateContractForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = CreateContractForm()
+        
+    return render(request, 'create/contract-create.html', {'form': form})

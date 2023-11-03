@@ -111,3 +111,13 @@ class AddRestaurantForm(forms.ModelForm):
 
 class UpdateRestaurantForm(AddRestaurantForm):
     pass
+
+class CreateContractForm(forms.ModelForm):
+    class Meta:
+        model= Contrato
+        fields = ['chef', 'restaurant']
+        
+        widgets = {
+            'chef': forms.Select(attrs={'class': 'custom-class'}),
+            'restaurant': forms.Select(attrs={'class': 'custom-class'}),
+        }

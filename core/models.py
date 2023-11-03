@@ -145,9 +145,9 @@ class Contrato(models.Model, PrimitiveModel):
         return self.chef.first_name + '-' + self.restaurant.name
 
 
-class Composicao(models.Model, PrimitiveModel):
-    book = models.ForeignKey(Livro, on_delete=models.CASCADE)
-    recipe = models.ForeignKey(Receita, on_delete=models.CASCADE)
+# class Composicao(models.Model, PrimitiveModel):
+#     book = models.ForeignKey(Livro, on_delete=models.CASCADE)
+#     recipe = models.ForeignKey(Receita, on_delete=models.CASCADE)
 
 
 class Validacao(models.Model, PrimitiveModel):

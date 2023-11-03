@@ -1,7 +1,7 @@
 from django.urls import path, include
-from .views import Index, CategoryListView, CheffListView, TasterListView, EditorListView, LivroListView, IngredienteListView, ReceitaListView, RestauranteListView
+from .views import Index, CategoryListView, CheffListView, TasterListView, EditorListView, LivroListView, IngredienteListView, ReceitaListView, RestauranteListView, ContractListView
 from .views import CategoryDetailView, CheffDetailView, TasterDetailView, EditorDetailView, LivroDetailView, IngredienteDetailView, ReceitaDetailView, RestauranteDetailView
-from .views import CategoryCreateView, UserCreateView, TasterCreateView, EditorCreateView, LivroCreateView, IngredienteCreateView, ReceitaCreateView, RestauranteCreateView
+from .views import CategoryCreateView, UserCreateView, TasterCreateView, EditorCreateView, LivroCreateView, IngredienteCreateView, ReceitaCreateView, RestauranteCreateView, create_contract
 from .views import CheffUpdateView, TasterUpdateView, EditorUpdateView, CategoryUpdateView, BookUpdateView, IngredientUpdateView, RestaurantUpdateView, RecipeUpdateView
 from .views import ChefDeleteView, TasterDeleteView, EditorDeleteView, CategoryDeleteView, IngredientDeleteView, RecipeDeleteView, RestaurantDeleteView
 from .seed import seed
@@ -19,6 +19,7 @@ urlpatterns = [
     path('ingrediente', IngredienteListView.as_view()),
     path('receita', ReceitaListView.as_view()),
     path('restaurante', RestauranteListView.as_view()),
+    path('contrato', ContractListView.as_view(), name= 'contract-list'),
     
     path('categoria/criar', CategoryCreateView.as_view()),
     path('cozinheiro/criar', UserCreateView.as_view()),
@@ -28,6 +29,7 @@ urlpatterns = [
     path('ingrediente/criar', IngredienteCreateView.as_view()),
     path('receita/criar', ReceitaCreateView.as_view()),
     path('restaurante/criar', RestauranteCreateView.as_view()),
+    path('contrato/criar', create_contract),
     
     path('cozinheiro/remover/<int:pk>', ChefDeleteView.as_view()),
     path('degustador/remover/<int:pk>', TasterDeleteView.as_view()),

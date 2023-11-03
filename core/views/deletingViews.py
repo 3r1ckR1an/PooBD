@@ -2,7 +2,7 @@ from django.views.generic import DeleteView
 from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato, CustomUser
 from django.urls import reverse_lazy
 
-class UserDeleteBaseView:
+class UserDeleteBaseView(DeleteView):
     model = CustomUser
     template_name = 'delete/user_confirm_deletion.html'
 
@@ -11,11 +11,11 @@ class ChefDeleteView(UserDeleteBaseView, DeleteView):
     success_url = reverse_lazy('cheff-list')
 
 
-class TasterDeleteView(DeleteView, UserDeleteBaseView):
+class TasterDeleteView(UserDeleteBaseView):
     success_url = reverse_lazy('/degustador')
 
 
-class EditorDeleteView(DeleteView, UserDeleteBaseView):
+class EditorDeleteView(UserDeleteBaseView):
     success_url = reverse_lazy('/editor')
 
 
