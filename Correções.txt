@@ -1,0 +1,64 @@
+Cozinheiros:
+
+* Tá faltando campo de 'Data Contrato Cozinheiro'. - TA NA CONTRATO
+
+Degustadores:
+
+* Ao deletar degustador dá erro. - CORRIGIDO
+* Tá faltando campo de 'Data Contrato Degustador'. - TA NA CONTRATO
+
+Editores:
+
+* Ao deletar editor dá erro. - CORRIGIDO
+* Tá faltando campo de 'Data Contrato Editor'. - TA NA CONTRATO
+
+Livros:
+
+* Quando clica pra editar algum livro dá erro. - CORRIGIDO
+* Não criou deleção de livro parece. Dá erro. - CORRIGIDO
+* Tá faltando campo de ISBN.- É CRIADO AUTOMÁTICO
+
+* Após cadastro, ao clicar em livro só mostra o título do livro. Continua assim? - SIM
+
+Categoria Receitas:
+
+* Tá faltando campo de 'código da categoria da receita'. - É CRIADO AUTOMÁTICO
+* Ao deletar categoria dá erro. - CORRIGIDO
+
+* Após cadastro, ao clicar em categoria só mostra o nome dela. Continua assim? - CORRIGIDO
+
+Receitas:
+
+* Tá faltando campo 'Código da receita'. - É CRIADO AUTOMÁTICO 
+* Tá faltando campo 'Data da criação da receita'.
+* Ao editar receita dá erro.
+* Ao deletar receita dá erro.
+
+* Após cadastro, ao clicar em receita só mostra o nome da receita. Continua assim?
+
+* Ao invés de criar um campo pra 'Código categoria receita', 'cpf cozinheiro' e 'ISBN do livro' ele faz uma referência a coisa como um todo no cadastro. Continua assim?
+
+Restaurantes:
+
+* Tá faltando campo de 'código restaurante'.
+* Ao editar restaurante dá erro.
+* Ao deletar restaurante dá erro.
+
+Ingredientes:
+
+* Tá faltando campo de 'código ingrediente'.
+* Ao deletar ingrediente dá erro.
+
+Ingredientes Receitas:
+
+- Não existe-
+
+
+Restaurantes Cozinheiro:
+
+- Não existe-
+
+
+#Detalhes#
+
+* Só em Categoria Receitas que pergunta se tem certeza que quer excluir.

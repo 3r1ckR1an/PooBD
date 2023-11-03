@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block content %}
+<div class="w-screen p-4 flex flex-col items-center">
+	<h1 class='font-bold'>{{object.first_name}} {{object.last_name}}</h1>
+	<p>Email: {{object.email}}</p>
+	<p>CPF: {{object.cpf}}</p>
+	<p>Salário: R${{object.salary}}</p>
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1 hover:cursor-pointer' href="/editor/editar/{{object.cpf}}">Editar</a>
+	<a class='font-bold rounded-md border-gray-400 border-2 p-1 hover:cursor-pointer' href="/editor/remover/{{object.id}}">Remover</a>
+	{% for book in books %}
+	<a href="/livro/{{book.isbn_code}}">
+		<div class="rounded p-2 text-white bg-gray-500">{{book.title}}</div>
+	</a>
+	{% empty %}
+	<p>Este editor não editou nenhum livro ainda</p>
+	{% endfor %}
+</div>
+
+{% endblock %}

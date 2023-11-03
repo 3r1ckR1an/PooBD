@@ -1,0 +1,9 @@
+{% extends "base.html" %} {% block content %}
+<div class="w-screen p-4 flex flex-col gap-3 items-center">
+    <h1>{% firstof title 'Criar uma receita' %}</h1>
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Criar">
+    </form>
+</div>
+{% endblock %}
