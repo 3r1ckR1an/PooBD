@@ -24,7 +24,6 @@ class Index(TemplateView):
         models_names = []
         
         for model in my_models:
-            print(model.__name__)
             if model.__name__ not in ["CustomUser"]:
                 names = ['', '']
                 try:
@@ -48,7 +47,6 @@ class CategoryListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         categorias = self.model.objects.all()
-        print(categorias)
         context['categorias'] = categorias
         
         return context
@@ -72,7 +70,6 @@ class CheffListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         cheffs = self.model.objects.all()
-        print(cheffs)
         context['cheffs'] = cheffs
         
         return context

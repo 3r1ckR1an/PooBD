@@ -3,7 +3,7 @@
     <h1>{% firstof title 'Criar porção' %}</h1>
     <form method="post">{% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Registrar">
+        <input class='font-bold rounded-md border-gray-400 border-2 p-1 hover:cursor-pointer' type="submit" value="Registrar">
     </form>
 </div>
 {% endblock %}

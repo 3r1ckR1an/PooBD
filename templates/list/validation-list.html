@@ -2,7 +2,7 @@
 <div class="w-screen p-0">
 	<div class="w-screen p-4">
 		<h1 class="font-bold text-2xl mb-5">Avaliação</h1>
-		<div class="flex gap-6 flex-wrap">
+		<div class="flex gap-6 flex-wrap mb-5">
 			{% for validacao in object_list %}
 			<div class="rounded p-2 text-white bg-gray-500">
 				<a href="/validacao/{{validacao.id}}">
