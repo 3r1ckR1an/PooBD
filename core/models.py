@@ -138,11 +138,11 @@ class Porcao(models.Model, PrimitiveModel):
 
 
 class Contrato(models.Model, PrimitiveModel):
-    chef = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    employee = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     restaurant = models.OneToOneField(Restaurante, on_delete=models.CASCADE)
     
     def __str__(self) -> str:
-        return self.chef.first_name + '-' + self.restaurant.name
+        return self.employee.first_name + '-' + self.restaurant.name
 
 
 # class Composicao(models.Model, PrimitiveModel):
@@ -151,6 +151,13 @@ class Contrato(models.Model, PrimitiveModel):
 
 
 class Validacao(models.Model, PrimitiveModel):
+    class Meta:
+        verbose_name = 'Validação'
+        verbose_name_plural = 'Validações'
+    
     grade = models.IntegerField()
     taster = models.ForeignKey(Degustador, on_delete= models.CASCADE)
     recipe = models.ForeignKey(Receita, on_delete= models.CASCADE)
+    
+    def __str__(self) -> str:
+        return self.taster.first_name + '-' + self.recipe.name

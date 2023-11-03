@@ -1,5 +1,5 @@
 from django import forms
-from .models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato
+from .models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato, Validacao
 
 class BaseUserFormMeta:
     fields = ("first_name", "last_name", "email", "salary", "cpf",)
@@ -112,12 +112,44 @@ class AddRestaurantForm(forms.ModelForm):
 class UpdateRestaurantForm(AddRestaurantForm):
     pass
 
+
 class CreateContractForm(forms.ModelForm):
     class Meta:
         model= Contrato
-        fields = ['chef', 'restaurant']
+        fields = ['employee', 'restaurant']
         
         widgets = {
-            'chef': forms.Select(attrs={'class': 'custom-class'}),
+            'employee': forms.Select(attrs={'class': 'custom-class'}),
             'restaurant': forms.Select(attrs={'class': 'custom-class'}),
         }
+
+
+class CreatePorcaoForm(forms.ModelForm):
+    class Meta:
+        model= Porcao
+        fields = ['ingredient', 'ingredient_amount', 'measurement', 'recipe']
+        
+        widgets = {
+            'ingredient': forms.Select(attrs={'class': 'custom-class'}),
+            'ingredient_amount': forms.NumberInput(attrs={'class': 'custom-class'}),
+            'measurement': forms.TextInput(attrs={'class': 'custom-class'}),
+            'recipe': forms.Select(attrs={'class': 'custom-class'}),
+        }
+
+
+class CreateValidationForm(forms.ModelForm):
+    class Meta:
+        model= Validacao
+        fields = ['grade', 'taster', 'recipe']
+        
+        widgets = {
+            'grade': forms.NumberInput(attrs={'class': 'custom-class'}),
+            'taster': forms.Select(attrs={'class': 'custom-class'}),
+            'recipe': forms.Select(attrs={'class': 'custom-class'}),
+        }
+    
+    def clean_grade(self):
+        grade = self.cleaned_data['grade']
+        if grade < 0 or grade > 5:
+            raise forms.ValidationError("A nota deve estar entre 0 e 5.")
+        return grade

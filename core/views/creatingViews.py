@@ -1,8 +1,8 @@
 from django.views.generic import CreateView
 from django.shortcuts import render, redirect
 from django.apps import apps
-from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato, CustomUser
-from ..forms import AddCheffForm, AddTasterForm, AddEditorForm, AddBookForm, AddIngredientForm, AddRecipeForm, AddRestaurantForm, AddCategoryForm, CreateContractForm
+from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato, Validacao
+from ..forms import AddCheffForm, AddTasterForm, AddEditorForm, AddBookForm, AddIngredientForm, AddRecipeForm, AddRestaurantForm, AddCategoryForm, CreateContractForm, CreatePorcaoForm, CreateValidationForm
 
 class CategoryCreateView(CreateView):
     model = Categoria
@@ -52,14 +52,21 @@ class RestauranteCreateView(CreateView):
     template_name='create/restaurant-create.html'
 
 
-def create_contract(request):
-    if request.method == 'POST':
-        form = CreateContractForm(request.POST)
-        
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-    else:
-        form = CreateContractForm()
-        
-    return render(request, 'create/contract-create.html', {'form': form})
+class PorcaoCreateView(CreateView):
+    model = Porcao
+    form_class = CreatePorcaoForm
+    template_name='create/porcao-create.html'
+
+
+class ContractCreateView(CreateView):
+    model = Contrato
+    form_class = CreateContractForm
+    template_name='create/contract-create.html'
+
+
+
+class ValidationCreateView(CreateView):
+    model = Validacao
+    form_class = CreateValidationForm
+    template_name='create/validation-create.html'
+

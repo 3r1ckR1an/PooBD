@@ -4,8 +4,8 @@
     <div class="flex gap-6 flex-wrap">
         {%for m in models%}
         <div class="rounded w-fit bg-gray-500 p-3">
-            <a href="/{{m|lower}}">
-                <p class='text-lg text-white'>{{m|capfirst}}</p>
+            <a href="/{{m.1|lower}}">
+                <p class='text-lg text-white'>{{m.0|capfirst}}</p>
             </a>
         </div>
         {%endfor%}
