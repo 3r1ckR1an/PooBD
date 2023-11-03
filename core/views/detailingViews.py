@@ -114,7 +114,7 @@ class RestauranteDetailView(DetailView):
 
 
 class RecipeDetailView(DetailView):
-    model = Restaurante
+    model = Receita
     template_name='detail/restaurant-detail.html'
 
     def get_object(self):

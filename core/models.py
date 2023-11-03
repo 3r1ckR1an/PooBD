@@ -7,6 +7,9 @@ class CustomUser(models.Model):
     first_name = models.CharField(blank= True)
     last_name = models.CharField(blank= True)
     email = models.EmailField(blank= True)
+    
+    def __str__(self) -> str:
+        return self.first_name + ' ' + self.last_name
 
 class PrimitiveModel():
     created_at = models.DateTimeField(auto_now_add=True)
@@ -99,7 +102,7 @@ class Receita(models.Model, PrimitiveModel):
     code = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField(max_length=200)
     serving_amount = models.IntegerField(default=1)
-    description = models.CharField(default='')
+    description = models.CharField(default='', blank= True)
     category = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     chef = models.OneToOneField(Cozinheiro, on_delete=models.CASCADE)
     book = models.OneToOneField(Livro, on_delete=models.CASCADE)
