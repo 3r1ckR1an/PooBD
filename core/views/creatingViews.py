@@ -1,4 +1,5 @@
 from django.views.generic import CreateView
+from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.apps import apps
 from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato, Validacao
@@ -62,6 +63,7 @@ class ContractCreateView(CreateView):
     model = Contrato
     form_class = CreateContractForm
     template_name='create/contract-create.html'
+    success_url = reverse_lazy('contract-list')
 
 
 

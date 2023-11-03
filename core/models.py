@@ -145,7 +145,7 @@ class Porcao(models.Model, PrimitiveModel):
 
 class Contrato(models.Model, PrimitiveModel):
     employee = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    restaurant = models.OneToOneField(Restaurante, on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(Restaurante, on_delete=models.CASCADE)
     
     def __str__(self) -> str:
         return self.employee.first_name + '-' + self.restaurant.name
