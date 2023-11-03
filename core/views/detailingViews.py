@@ -1,6 +1,6 @@
 from django.views.generic import DetailView
 from django.apps import apps
-from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato, CustomUser
+from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato, Validacao
 
 class CategoryDetailView(DetailView):
     model = Categoria
@@ -89,16 +89,31 @@ class IngredienteDetailView(DetailView):
         return self.model.objects.get(code=self.kwargs.get("code"))
 
 
-class ReceitaDetailView(DetailView):
-    model = Receita
-    template_name='detail/recipe-detail.html'
+class ContractDetailView(DetailView):
+    model = Contrato
+    template_name='detail/contrato-detail.html'
+
+
+class PorcaoDetailView(DetailView):
+    model = Porcao
+    template_name='detail/porcao-detail.html'
+
+
+class ValidacaoDetailView(DetailView):
+    model = Validacao
+    template_name='detail/validacao-detail.html'
+
+
+class RestauranteDetailView(DetailView):
+    model = Restaurante
+    template_name='detail/restaurant-detail.html'
 
     def get_object(self):
         
         return self.model.objects.get(code=self.kwargs.get("code"))
 
 
-class RestauranteDetailView(DetailView):
+class RecipeDetailView(DetailView):
     model = Restaurante
     template_name='detail/restaurant-detail.html'
 

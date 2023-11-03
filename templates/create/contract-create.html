@@ -3,7 +3,7 @@
     <h1>{% firstof title 'Conrtato' %}</h1>
     <form method="post">{% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Registrar">
+        <input type="submit" value="Editar">
     </form>
 </div>
 {% endblock %}

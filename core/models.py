@@ -135,6 +135,9 @@ class Porcao(models.Model, PrimitiveModel):
     
     def __str__(self) -> str:
         return self.ingredient.name + '-' + self.recipe.name
+    
+    def get_absolute_url(self):
+        return reverse('porcao-list')
 
 
 class Contrato(models.Model, PrimitiveModel):
@@ -143,6 +146,9 @@ class Contrato(models.Model, PrimitiveModel):
     
     def __str__(self) -> str:
         return self.employee.first_name + '-' + self.restaurant.name
+    
+    def get_absolute_url(self):
+        return reverse('validacao-list')
 
 
 # class Composicao(models.Model, PrimitiveModel):
@@ -161,3 +167,6 @@ class Validacao(models.Model, PrimitiveModel):
     
     def __str__(self) -> str:
         return self.taster.first_name + '-' + self.recipe.name
+    
+    def get_absolute_url(self):
+        return reverse('validacao-detail', args=[str(self.id)])

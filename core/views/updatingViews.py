@@ -1,6 +1,6 @@
 from django.views.generic import UpdateView
-from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante
-from ..forms import AddBookForm, AddCategoryForm
+from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Validacao, Contrato
+from ..forms import AddBookForm, AddCategoryForm, CreatePorcaoForm, CreateContractForm
 from ..forms import UpdateCheffForm, UpdateTasterForm, UpdateEditorForm, UpdateIngredientForm, UpdateRecipeForm, UpdateRestaurantForm
 
 class CheffUpdateView(UpdateView):
@@ -60,14 +60,20 @@ class BookUpdateView(UpdateView):
     template_name='create/book-create.html'
     
     def get_object(self, queryset=None):
-        code = self.kwargs.get('code')
-        res = self.model.objects.get(code=code)
+        code = self.kwargs.get('isbn_code')
+        res = self.model.objects.get(isbn_code=code)
         return res
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
         return context
+
+
+class ContractUpdateView(UpdateView):
+    model = Contrato
+    form_class = CreateContractForm
+    template_name='create/contract-create.html'
 
 
 class IngredientUpdateView(UpdateView):
@@ -123,3 +129,28 @@ class RestaurantUpdateView(UpdateView):
         
         return context
 
+
+class PorcaoUpdateView(UpdateView):
+    model = Porcao
+    form_class = CreatePorcaoForm
+    template_name='create/porcao-create.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['action_label'] = 'Editar'
+        context['title'] = 'Editar porção'
+        
+        return context
+
+
+class ValidacaoUpdateView(UpdateView):
+    model = Validacao
+    form_class = CreatePorcaoForm
+    template_name='create/validation-create.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['action_label'] = 'Editar'
+        context['title'] = 'Editar validação'
+        
+        return context
