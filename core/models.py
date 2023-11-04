@@ -3,12 +3,12 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User, AbstractBaseUser, AbstractUser
 
-class PrimitiveModel():
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+class PrimitiveModel(models.Model):
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
 
 
-class CustomUser(models.Model, PrimitiveModel):
+class CustomUser(PrimitiveModel):
     name = models.CharField(blank= True)
     email = models.EmailField(blank= True)
     salary = models.DecimalField(max_digits=8, decimal_places=2)
@@ -55,7 +55,7 @@ class Editor(CustomUser):
         return super().name
 
 
-class Categoria(models.Model, PrimitiveModel):
+class Categoria(PrimitiveModel):
     code = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField()
     description = models.CharField()
@@ -67,7 +67,7 @@ class Categoria(models.Model, PrimitiveModel):
         return self.name
 
 
-class Livro(models.Model, PrimitiveModel):
+class Livro(PrimitiveModel):
     title = models.CharField(max_length=200, unique=True)
     isbn_code = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     editor = models.ForeignKey(Editor, on_delete=models.CASCADE)
@@ -79,7 +79,7 @@ class Livro(models.Model, PrimitiveModel):
         return self.title
 
 
-class Ingrediente(models.Model, PrimitiveModel):
+class Ingrediente(PrimitiveModel):
     code = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField(max_length=200, unique=True)
     description = models.CharField(default='')
@@ -91,7 +91,7 @@ class Ingrediente(models.Model, PrimitiveModel):
         return self.name
 
 
-class Receita(models.Model, PrimitiveModel):
+class Receita(PrimitiveModel):
     code = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField(max_length=200)
     serving_amount = models.IntegerField(default=1)
@@ -108,7 +108,7 @@ class Receita(models.Model, PrimitiveModel):
 
 
 
-class Restaurante(models.Model, PrimitiveModel):
+class Restaurante(PrimitiveModel):
     code = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField(max_length=200, unique=True)
     
@@ -119,7 +119,7 @@ class Restaurante(models.Model, PrimitiveModel):
         return self.name
 
 
-class Porcao(models.Model, PrimitiveModel):
+class Porcao(PrimitiveModel):
     class Meta:
         verbose_name = 'Porção'
         verbose_name_plural = 'Porções'
@@ -136,7 +136,7 @@ class Porcao(models.Model, PrimitiveModel):
         return reverse('porcao-list')
 
 
-class Contrato(models.Model, PrimitiveModel):
+class Contrato(PrimitiveModel):
     employee = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     restaurant = models.ForeignKey(Restaurante, on_delete=models.CASCADE)
     
@@ -147,7 +147,7 @@ class Contrato(models.Model, PrimitiveModel):
         return reverse('validacao-list')
 
 
-class Validacao(models.Model, PrimitiveModel):
+class Validacao(PrimitiveModel):
     class Meta:
         verbose_name = 'Validação'
         verbose_name_plural = 'Validações'

@@ -24,7 +24,7 @@ class Index(TemplateView):
         models_names = []
         
         for model in my_models:
-            if model.__name__ not in ["CustomUser"]:
+            if model.__name__ not in ["CustomUser", "PrimitiveModel"]:
                 names = ['', '']
                 try:
                     names[0] = model._meta.verbose_name

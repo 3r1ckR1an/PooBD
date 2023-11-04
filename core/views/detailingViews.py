@@ -76,6 +76,8 @@ class LivroDetailView(DetailView):
         
         book = self.get_object()
         context['recipes']= Receita.objects.filter(book__title= book.title)
+        context['editor'] = book.editor
+        print(book.editor)
         
         return context
 
@@ -92,11 +94,31 @@ class IngredienteDetailView(DetailView):
 class ContractDetailView(DetailView):
     model = Contrato
     template_name='detail/contrato-detail.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        contrato = self.get_object()
+        quando = contrato.created_at
+        context['data_de_criacao'] = f'{quando.day}/{quando.month}/{quando.year}'
+        
+        return context
 
 
 class PorcaoDetailView(DetailView):
     model = Porcao
     template_name='detail/porcao-detail.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        porcao = self.get_object()
+        print(porcao.ingredient)
+        context['ingrediente'] = porcao.ingredient.name
+        context['ingredient_amount'] = porcao.ingredient_amount
+        context['measurement'] = porcao.measurement
+        
+        return context
 
 
 class ValidacaoDetailView(DetailView):
@@ -148,4 +170,13 @@ class RecipeDetailView(DetailView):
     def get_object(self):
         
         return self.model.objects.get(code=self.kwargs.get("code"))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        receita = self.get_object()
+        quando = receita.created_at
+        context['data_de_criacao'] = f'{quando.day}/{quando.month}/{quando.year}'
+        
+        return context
 
