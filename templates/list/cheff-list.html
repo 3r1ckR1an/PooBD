@@ -6,7 +6,7 @@
 			{% for cheff in cheffs %}
 			<div class="rounded p-2 text-white bg-gray-500">
 				<a href="cozinheiro/{{cheff.cpf}}">
-					<p>{{ cheff.first_name }} {{ cheff.last_name }}</p>
+					<p>{{ cheff.name }}</p>
 				</a>
 			</div>
 			{% empty %}

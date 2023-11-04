@@ -13,7 +13,6 @@ class CategoryCreateView(CreateView):
 class UserCreateView(CreateView):
     model = Cozinheiro
     form_class = AddCheffForm
-    # fields = ["username", "first_name", "last_name", "email", "salary", "cpf", "chef_name"]
     template_name='create/user-create.html'
 
 

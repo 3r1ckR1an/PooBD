@@ -4,12 +4,11 @@ from django.urls import reverse
 from django.contrib.auth.models import User, AbstractBaseUser, AbstractUser
 
 class CustomUser(models.Model):
-    first_name = models.CharField(blank= True)
-    last_name = models.CharField(blank= True)
+    name = models.CharField(blank= True)
     email = models.EmailField(blank= True)
     
     def __str__(self) -> str:
-        return self.first_name + ' ' + self.last_name
+        return self.name
 
 class PrimitiveModel():
     created_at = models.DateTimeField(auto_now_add=True)
@@ -41,7 +40,7 @@ class Cozinheiro(CustomUser, PrimitiveModel):
         return reverse('cheff-detail', args=[str(self.cpf)])
     
     def __str__(self) -> str:
-        return super().first_name
+        return super().name
 
 
 class Degustador(CustomUser, PrimitiveModel):
@@ -56,7 +55,7 @@ class Degustador(CustomUser, PrimitiveModel):
         return reverse('taster-detail', args=[str(self.cpf)])
     
     def __str__(self) -> str:
-        return super().first_name
+        return super().name
 
 
 class Editor(CustomUser, PrimitiveModel):
@@ -71,7 +70,7 @@ class Editor(CustomUser, PrimitiveModel):
         return reverse('editor-detail', args=[str(self.cpf)])
     
     def __str__(self) -> str:
-        return super().first_name
+        return super().name
 
 
 class Livro(models.Model, PrimitiveModel):
@@ -148,7 +147,7 @@ class Contrato(models.Model, PrimitiveModel):
     restaurant = models.ForeignKey(Restaurante, on_delete=models.CASCADE)
     
     def __str__(self) -> str:
-        return self.employee.first_name + '-' + self.restaurant.name
+        return self.employee.name + '-' + self.restaurant.name
     
     def get_absolute_url(self):
         return reverse('validacao-list')
@@ -169,7 +168,7 @@ class Validacao(models.Model, PrimitiveModel):
     recipe = models.ForeignKey(Receita, on_delete= models.CASCADE)
     
     def __str__(self) -> str:
-        return self.taster.first_name + '-' + self.recipe.name
+        return self.taster.name + '-' + self.recipe.name
     
     def get_absolute_url(self):
         return reverse('validacao-detail', args=[str(self.id)])

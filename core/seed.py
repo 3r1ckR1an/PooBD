@@ -29,13 +29,13 @@ def create_users(data):
     editors = data[4:6]
 
     for chef in chefs:
-        Cozinheiro.objects.create(salary= 1, first_name= chef['first_name'], last_name= chef['last_name'], cpf= chef['cpf'], email= chef['email'])
+        Cozinheiro.objects.create(salary= 1, name= chef['first_name'] + ' ' + chef['last_name'], cpf= chef['cpf'], email= chef['email'])
 
     for taster in tasters:
-        Degustador.objects.create(salary= 1, first_name= taster['first_name'], last_name= taster['last_name'], cpf= taster['cpf'], email= taster['email'])
+        Degustador.objects.create(salary= 1, name= taster['first_name'] + ' ' + taster['last_name'], cpf= taster['cpf'], email= taster['email'])
 
     for editor in editors:
-        Editor.objects.create(salary= 1, first_name= editor['first_name'], last_name= editor['last_name'], cpf= editor['cpf'], email= editor['email'])
+        Editor.objects.create(salary= 1, name= editor['first_name'] + ' ' + editor['last_name'], cpf= editor['cpf'], email= editor['email'])
 
 def create_ingredients(data):
     for ingredient in data:

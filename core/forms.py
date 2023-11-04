@@ -2,12 +2,11 @@ from django import forms
 from .models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato, Validacao
 
 class BaseUserFormMeta:
-    fields = ("first_name", "last_name", "email", "salary", "cpf",)
+    fields = ("name", "email", "salary", "cpf",)
     
     widgets = {
         'password': forms.PasswordInput(attrs={'class': 'input input-bordered'}),
-        'first_name': forms.TextInput(attrs={'class': 'input input-bordered'}),
-        'last_name': forms.TextInput(attrs={'class': 'input input-bordered'}),
+        'name': forms.TextInput(attrs={'class': 'input input-bordered'}),
         'email': forms.EmailInput(attrs={'class': 'input input-bordered'}),
         'salary': forms.NumberInput(attrs={'class': 'input input-bordered'}),
         'cpf': forms.TextInput(attrs={'class': 'input input-bordered'}),

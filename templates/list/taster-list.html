@@ -6,7 +6,7 @@
 			{% for degustador in object_list %}
 			<div class="rounded p-2 text-white bg-gray-500">
 				<a href="degustador/{{degustador.cpf}}">
-					<p>{{ degustador.first_name }} {{ degustador.last_name }}</p>
+					<p>{{ degustador.name }}</p>
 				</a>
 			</div>
 			{% empty %}

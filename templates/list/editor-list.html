@@ -6,7 +6,7 @@
 			{% for editor in object_list %}
 			<div class="rounded p-2 text-white bg-gray-500">
 				<a href="editor/{{editor.cpf}}">
-					<p>{{ editor.first_name }} {{ editor.last_name }}</p>
+					<p>{{ editor.name }}</p>
 				</a>
 			</div>
 			{% empty %}

@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
 <div class="w-screen p-4 flex flex-col items-center">
-	<h1 class='font-bold'>{{object.first_name}} {{object.last_name}}</h1>
+	<h1 class='font-bold'>{{object.name}}</h1>
 	<p>Email: {{object.email}}</p>
     <form method="post">
         {% csrf_token %}
