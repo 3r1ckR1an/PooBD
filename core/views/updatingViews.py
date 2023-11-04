@@ -1,6 +1,7 @@
 from django.views.generic import UpdateView
+from django.urls import reverse_lazy
 from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Validacao, Contrato
-from ..forms import AddBookForm, AddCategoryForm, CreatePorcaoForm, CreateContractForm
+from ..forms import AddBookForm, AddCategoryForm, CreatePorcaoForm, CreateContractForm, CreateValidationForm
 from ..forms import UpdateCheffForm, UpdateTasterForm, UpdateEditorForm, UpdateIngredientForm, UpdateRecipeForm, UpdateRestaurantForm
 
 class CheffUpdateView(UpdateView):
@@ -74,6 +75,14 @@ class ContractUpdateView(UpdateView):
     model = Contrato
     form_class = CreateContractForm
     template_name='create/contract-create.html'
+    success_url = reverse_lazy('contract-list')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        context['action_label'] = 'Editar'
+        
+        return context
 
 
 class IngredientUpdateView(UpdateView):
@@ -119,7 +128,9 @@ class RestaurantUpdateView(UpdateView):
     
     def get_object(self, queryset=None):
         code = self.kwargs.get('code')
+        print(code)
         res = self.model.objects.get(code=code)
+        print(res)
         return res
 
     def get_context_data(self, **kwargs):
@@ -145,7 +156,7 @@ class PorcaoUpdateView(UpdateView):
 
 class ValidacaoUpdateView(UpdateView):
     model = Validacao
-    form_class = CreatePorcaoForm
+    form_class = CreateValidationForm
     template_name='create/validation-create.html'
 
     def get_context_data(self, **kwargs):

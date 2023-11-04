@@ -3,16 +3,56 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User, AbstractBaseUser, AbstractUser
 
-class CustomUser(models.Model):
+class PrimitiveModel():
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class CustomUser(models.Model, PrimitiveModel):
     name = models.CharField(blank= True)
     email = models.EmailField(blank= True)
+    salary = models.DecimalField(max_digits=8, decimal_places=2)
+    cpf = models.CharField(max_length=11, unique=True)
     
     def __str__(self) -> str:
         return self.name
 
-class PrimitiveModel():
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+
+class Cozinheiro(CustomUser):
+    class Meta:
+        verbose_name = 'Cozinheiro'
+        
+    chef_name = models.CharField(max_length=80, blank=True, default='')
+    
+    def get_absolute_url(self):
+        return reverse('cheff-detail', args=[str(self.cpf)])
+    
+    def __str__(self) -> str:
+        return super().name
+
+
+class Degustador(CustomUser):
+    class Meta:
+        verbose_name = 'Degustador'
+        verbose_name_plural  = 'Degustadores'
+    
+    def get_absolute_url(self):
+        return reverse('taster-detail', args=[str(self.cpf)])
+    
+    def __str__(self) -> str:
+        return super().name
+
+
+class Editor(CustomUser):
+    class Meta:
+        verbose_name = 'Editor'
+        verbose_name_plural  = 'Editores'
+    
+    def get_absolute_url(self):
+        return reverse('editor-detail', args=[str(self.cpf)])
+    
+    def __str__(self) -> str:
+        return super().name
 
 
 class Categoria(models.Model, PrimitiveModel):
@@ -25,52 +65,6 @@ class Categoria(models.Model, PrimitiveModel):
     
     def __str__(self) -> str:
         return self.name
-
-
-class Cozinheiro(CustomUser, PrimitiveModel):
-    class Meta:
-        verbose_name = 'Cozinheiro'
-        
-    chef_name = models.CharField(max_length=80, blank=True, default='')
-    # salary = models.FloatField(max_length=8)
-    salary = models.DecimalField(max_digits=8, decimal_places=2)
-    cpf = models.CharField(max_length=11, unique=True)
-    
-    def get_absolute_url(self):
-        return reverse('cheff-detail', args=[str(self.cpf)])
-    
-    def __str__(self) -> str:
-        return super().name
-
-
-class Degustador(CustomUser, PrimitiveModel):
-    class Meta:
-        verbose_name = 'Degustador'
-        verbose_name_plural  = 'Degustadores'
-        
-    salary = models.DecimalField(max_digits=8, decimal_places=2)
-    cpf = models.CharField(max_length=11, unique=True)
-    
-    def get_absolute_url(self):
-        return reverse('taster-detail', args=[str(self.cpf)])
-    
-    def __str__(self) -> str:
-        return super().name
-
-
-class Editor(CustomUser, PrimitiveModel):
-    class Meta:
-        verbose_name = 'Editor'
-        verbose_name_plural  = 'Editores'
-        
-    salary = models.DecimalField(max_digits=8, decimal_places=2)
-    cpf = models.CharField(max_length=11, unique=True)
-    
-    def get_absolute_url(self):
-        return reverse('editor-detail', args=[str(self.cpf)])
-    
-    def __str__(self) -> str:
-        return super().name
 
 
 class Livro(models.Model, PrimitiveModel):
@@ -151,11 +145,6 @@ class Contrato(models.Model, PrimitiveModel):
     
     def get_absolute_url(self):
         return reverse('validacao-list')
-
-
-# class Composicao(models.Model, PrimitiveModel):
-#     book = models.ForeignKey(Livro, on_delete=models.CASCADE)
-#     recipe = models.ForeignKey(Receita, on_delete=models.CASCADE)
 
 
 class Validacao(models.Model, PrimitiveModel):

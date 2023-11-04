@@ -114,33 +114,20 @@ class RestauranteDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
-        restaurante = self.get_object()
-        
-        # Obtenha o restaurante atual
-        restaurante = self.get_object()
 
-        # Obtenha os contratos associados a este restaurante
+        restaurante = self.get_object()
         contratos = Contrato.objects.filter(restaurant=restaurante)
-        
-        print(isinstance(contratos[0].employee, Cozinheiro))
-        print(isinstance(contratos[0].employee, Degustador))
-        print(isinstance(contratos[0].employee, Editor))
-        
-        print(isinstance(contratos[1].employee, Cozinheiro))
-        print(isinstance(contratos[1].employee, Degustador))
-        print(isinstance(contratos[1].employee, Editor))
 
         cozinheiros = []
         degustadores = []
         editores = []
 
         for contrato in contratos:
-            if isinstance(contrato.employee, Cozinheiro):
+            if hasattr(contrato.employee, 'cozinheiro'):
                 cozinheiros.append(contrato.employee)
-            elif isinstance(contrato.employee, Degustador):
+            elif hasattr(contrato.employee, 'degustador'):
                 degustadores.append(contrato.employee)
-            elif isinstance(contrato.employee, Editor):
+            elif hasattr(contrato.employee, 'editor'):
                 editores.append(contrato.employee)
 
         print(cozinheiros)
@@ -156,7 +143,7 @@ class RestauranteDetailView(DetailView):
 
 class RecipeDetailView(DetailView):
     model = Receita
-    template_name='detail/restaurant-detail.html'
+    template_name='detail/recipe-detail.html'
 
     def get_object(self):
         
