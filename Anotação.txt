@@ -1,0 +1,37 @@
+Cozinheiros:
+
+* Após editar um Cozinheiro tá aparecendo um campo sem nada 'Chef name'.
+
+
+Livros:
+
+* É mais uma dúvida mesmo, o usuário precisa conseguir ver o ISBN?
+
+
+Receitas:
+
+* Ao editar receita dá erro. - CORRIGIDO
+* Ao deletar receita dá erro. - CORRIGIDO
+
+
+Contrato:
+
+* O botão que era pra ser de 'Cadastrar' tá 'Editar'. - CORRIGIDO
+* Quando termina de atualizar um contrato, a página te redireciona pra tela de 'Avaliação', e não atualiza o contrato. - CORRIGIDO
+
+
+Validação:
+
+* Cadastre uma validação, depois edite. Vc verá que ao editar, aparece uns campos que não são os mesmo que usou pra cadastrar a validação, parece outra coisa. Cadastro tem 3 campos, Edição tem 4. - CORRIGIDO
+
+* É Avaliação ou Validação?
+
+
+Restaurante:
+
+* Agora dá erro ao clicar em um restaurante.
+
+#Detalhes#
+
+* Só em Categoria Receitas que pergunta se tem certeza que quer excluir. Precisa colocar pros outros?
+

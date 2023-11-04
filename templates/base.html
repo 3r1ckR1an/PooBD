@@ -5,6 +5,17 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>POO BD</title>
 
+		<style>
+			.errorlist{
+				color: red;
+			}
+		</style>
+
+		<link
+			href="https://cdn.jsdelivr.net/npm/daisyui@3.9.2/dist/full.css"
+			rel="stylesheet"
+			type="text/css"
+		/>
 		<script src="https://cdn.tailwindcss.com"></script>
 		<script>
 			tailwind.config = {
@@ -18,7 +29,8 @@
 			};
 		</script>
 	</head>
-	<body style="background-color: #636161;"> {# Set the background color here #}
+	<body>
+		<a id='pagina-inicial-link' class="font-bold" href="/">Página inicial</a>
 		{% block content %}{% endblock %}
 	</body>
 </html>

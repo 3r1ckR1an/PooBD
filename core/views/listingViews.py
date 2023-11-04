@@ -2,7 +2,7 @@ from typing import Any
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
 from django.apps import apps
-from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Contrato
+from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Contrato, Porcao, Validacao
 
 class Index(TemplateView):
     template_name='index.html'
@@ -24,13 +24,15 @@ class Index(TemplateView):
         models_names = []
         
         for model in my_models:
-            if model.__name__ not in ["Porcao", "Validacao", "Composicao", "CustomUser"]:
+            if model.__name__ not in ["CustomUser"]:
+                names = ['', '']
                 try:
-                    name = model._meta.verbose_name
+                    names[0] = model._meta.verbose_name
                 except AttributeError:
-                    name = model.__name__
+                    names[0] = model.__name__
                 
-                models_names.append(name)
+                names[1] = model.__name__
+                models_names.append(names)
 
         context = super().get_context_data(**kwargs)
         context['models'] = models_names
@@ -45,7 +47,6 @@ class CategoryListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         categorias = self.model.objects.all()
-        print(categorias)
         context['categorias'] = categorias
         
         return context
@@ -69,7 +70,6 @@ class CheffListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         cheffs = self.model.objects.all()
-        print(cheffs)
         context['cheffs'] = cheffs
         
         return context
@@ -128,6 +128,26 @@ class ReceitaListView(ListView):
 class RestauranteListView(ListView):
     model = Restaurante
     template_name='list/restaurant-list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        return context
+
+
+class PorcaoListView(ListView):
+    model = Porcao
+    template_name='list/porcao-list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        return context
+
+
+class ValidationListView(ListView):
+    model = Validacao
+    template_name='list/validation-list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
