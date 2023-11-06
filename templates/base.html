@@ -10,6 +10,7 @@
 				color: red;
 			}
 		</style>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 		<link
 			href="https://cdn.jsdelivr.net/npm/daisyui@3.9.2/dist/full.css"
@@ -30,7 +31,14 @@
 		</script>
 	</head>
 	<body>
-		<a id='pagina-inicial-link' class="font-bold" href="/">Página inicial</a>
+		<div class="w-screen">
+			<a id='pagina-inicial-link' class="font-bold" href="/">Página inicial</a>
+			{% if prev_page_link %}
+			<a href="{{prev_page_link}}">
+				<i class="bi bi-arrow-left block text-3xl" ></i>
+			</a>
+			{% endif %}
+		</div>
 		{% block content %}{% endblock %}
 	</body>
 </html>

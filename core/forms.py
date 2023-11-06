@@ -1,5 +1,5 @@
 from django import forms
-from .models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato, Validacao
+from .models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato, Validacao, User
 
 class BaseUserFormMeta:
     fields = ("name", "email", "salary", "cpf",)
@@ -112,15 +112,48 @@ class UpdateRestaurantForm(AddRestaurantForm):
     pass
 
 
+
 class CreateContractForm(forms.ModelForm):
+    employee = forms.ModelChoiceField(
+        queryset=User.objects.all(),
+        widget=forms.Select(attrs={'class': 'select'}),
+        label="Employee",
+        to_field_name='id',
+        empty_label='Selecione',
+        required=True,
+        initial=None,
+    )
+    
+    restaurant = forms.ModelChoiceField(
+        queryset=Restaurante.objects.all(),
+        widget=forms.Select(attrs={'class': 'select'}),
+        label="Restaurant",
+        to_field_name='id',
+        empty_label='Selecione',
+        required=True,
+        initial=None,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(CreateContractForm, self).__init__(*args, **kwargs)
+        self.fields['employee'].queryset = User.objects.all()
+        self.fields['employee'].label_from_instance = lambda obj: obj.custom_employee_display()
+
     class Meta:
-        model= Contrato
+        model = Contrato
         fields = ['employee', 'restaurant']
+
+
+
+# class CreateContractForm(forms.ModelForm):
+#     class Meta:
+#         model= Contrato
+#         fields = ['employee', 'restaurant']
         
-        widgets = {
-            'employee': forms.Select(attrs={'class': 'select'}),
-            'restaurant': forms.Select(attrs={'class': 'select'}),
-        }
+#         widgets = {
+#             'employee': forms.Select(attrs={'class': 'select'}),
+#             'restaurant': forms.Select(attrs={'class': 'select'}),
+#         }
 
 
 class CreatePorcaoForm(forms.ModelForm):

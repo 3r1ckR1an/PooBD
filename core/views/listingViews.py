@@ -7,24 +7,13 @@ from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingredien
 class Index(TemplateView):
     template_name='index.html'
     
-    # def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-    #     models = apps.get_models()
-    #     my_models = [model for model in models if not model.__module__.startswith("django.")]
-    #     models_names = [model.__name__ for model in my_models]
-        
-    #     context = super().get_context_data(**kwargs)
-    #     context['models'] = models_names
-        
-    #     print(models_names)
-        
-    #     return context
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         models = apps.get_models()
         my_models = [model for model in models if not model.__module__.startswith("django.")]
         models_names = []
         
         for model in my_models:
-            if model.__name__ not in ["CustomUser", "PrimitiveModel"]:
+            if model.__name__ not in ["User", "PrimitiveModel"]:
                 names = ['', '']
                 try:
                     names[0] = model._meta.verbose_name

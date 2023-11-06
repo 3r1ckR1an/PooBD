@@ -16,6 +16,7 @@ class CategoryDetailView(DetailView):
         
         category = self.get_object()
         context['recipes']= Receita.objects.filter(category__code= category.code)
+        context['prev_page_link'] = '/categoria'
         
         return context
 
@@ -33,6 +34,7 @@ class CheffDetailView(DetailView):
         
         chef = self.get_object()
         context['recipes'] = Receita.objects.filter(chef__cpf= chef.cpf)
+        context['prev_page_link'] = '/cozinheiro'
         
         return context
 
@@ -44,6 +46,13 @@ class TasterDetailView(DetailView):
     def get_object(self):
         
         return self.model.objects.get(cpf=self.kwargs.get("cpf"))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        context['prev_page_link'] = '/degustador'
+        
+        return context
 
 
 class EditorDetailView(DetailView):
@@ -59,6 +68,7 @@ class EditorDetailView(DetailView):
         
         editor = self.get_object()
         context['books'] = Livro.objects.filter(editor__cpf= editor.cpf)
+        context['prev_page_link'] = '/editor'
         
         return context
 
@@ -77,7 +87,7 @@ class LivroDetailView(DetailView):
         book = self.get_object()
         context['recipes']= Receita.objects.filter(book__title= book.title)
         context['editor'] = book.editor
-        print(book.editor)
+        context['prev_page_link'] = '/livro'
         
         return context
 
@@ -89,6 +99,13 @@ class IngredienteDetailView(DetailView):
     def get_object(self):
         
         return self.model.objects.get(code=self.kwargs.get("code"))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        context['prev_page_link'] = '/ingrediente'
+        
+        return context
 
 
 class ContractDetailView(DetailView):
@@ -101,6 +118,7 @@ class ContractDetailView(DetailView):
         contrato = self.get_object()
         quando = contrato.created_at
         context['data_de_criacao'] = f'{quando.day}/{quando.month}/{quando.year}'
+        context['prev_page_link'] = '/contrato'
         
         return context
 
@@ -113,7 +131,7 @@ class PorcaoDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         
         porcao = self.get_object()
-        print(porcao.ingredient)
+        context['prev_page_link'] = '/porcao'
         context['ingrediente'] = porcao.ingredient.name
         context['ingredient_amount'] = porcao.ingredient_amount
         context['measurement'] = porcao.measurement
@@ -124,6 +142,13 @@ class PorcaoDetailView(DetailView):
 class ValidacaoDetailView(DetailView):
     model = Validacao
     template_name='detail/validacao-detail.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        context['prev_page_link'] = '/validacao'
+        
+        return context
 
 
 class RestauranteDetailView(DetailView):
@@ -159,6 +184,13 @@ class RestauranteDetailView(DetailView):
         context['cozinheiros'] = cozinheiros
         context['degustadores'] = degustadores
         context['editores'] = editores
+        # context['employees'] = {
+        #     'cozinheiros': cozinheiros,
+        #     'degustadores': degustadores,
+        #     'editores': editores,
+        # }
+        
+        context['prev_page_link'] = '/restaurante'
         
         return context
 
@@ -177,6 +209,7 @@ class RecipeDetailView(DetailView):
         receita = self.get_object()
         quando = receita.created_at
         context['data_de_criacao'] = f'{quando.day}/{quando.month}/{quando.year}'
+        context['prev_page_link'] = '/receita'
         
         return context
 

@@ -1,24 +1,38 @@
 import uuid
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import User, AbstractBaseUser, AbstractUser
 
 class PrimitiveModel(models.Model):
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
 
 
-class CustomUser(PrimitiveModel):
+class User(PrimitiveModel):
     name = models.CharField(blank= True)
     email = models.EmailField(blank= True)
     salary = models.DecimalField(max_digits=8, decimal_places=2)
     cpf = models.CharField(max_length=11, unique=True)
     
+    def custom_employee_display(self):
+        role = ''
+        
+        if hasattr(self, 'cozinheiro'):
+            role = 'Cozinheiro'
+        elif hasattr(self, 'degustador'):
+            role = 'Degustador'
+        elif hasattr(self, 'editor'):
+            role = 'Editor'
+        
+        if len(role)>0:
+            return f"{role} - {self.name}"
+        
+        return f"{self.name}"
+    
     def __str__(self) -> str:
         return self.name
 
 
-class Cozinheiro(CustomUser):
+class Cozinheiro(User):
     class Meta:
         verbose_name = 'Cozinheiro'
         
@@ -31,7 +45,7 @@ class Cozinheiro(CustomUser):
         return super().name
 
 
-class Degustador(CustomUser):
+class Degustador(User):
     class Meta:
         verbose_name = 'Degustador'
         verbose_name_plural  = 'Degustadores'
@@ -43,7 +57,7 @@ class Degustador(CustomUser):
         return super().name
 
 
-class Editor(CustomUser):
+class Editor(User):
     class Meta:
         verbose_name = 'Editor'
         verbose_name_plural  = 'Editores'
@@ -97,7 +111,7 @@ class Receita(PrimitiveModel):
     serving_amount = models.IntegerField(default=1)
     description = models.CharField(default='', blank= True)
     category = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    chef = models.OneToOneField(Cozinheiro, on_delete=models.CASCADE)
+    chef = models.ForeignKey(Cozinheiro, on_delete=models.CASCADE)
     book = models.OneToOneField(Livro, on_delete=models.CASCADE)
     
     def get_absolute_url(self):
@@ -124,7 +138,7 @@ class Porcao(PrimitiveModel):
         verbose_name = 'Porção'
         verbose_name_plural = 'Porções'
         
-    ingredient = models.OneToOneField(Ingrediente, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingrediente, on_delete=models.CASCADE)
     ingredient_amount = models.IntegerField()
     measurement = models.CharField(null=True, blank=True)
     recipe = models.OneToOneField(Receita, on_delete=models.CASCADE)
@@ -137,7 +151,7 @@ class Porcao(PrimitiveModel):
 
 
 class Contrato(PrimitiveModel):
-    employee = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    employee = models.OneToOneField(User, on_delete=models.CASCADE)
     restaurant = models.ForeignKey(Restaurante, on_delete=models.CASCADE)
     
     def __str__(self) -> str:
@@ -145,6 +159,9 @@ class Contrato(PrimitiveModel):
     
     def get_absolute_url(self):
         return reverse('validacao-list')
+    
+    def custom_employee_display(self):
+        return f"{self.employee.name} - {self.employee.email}"
 
 
 class Validacao(PrimitiveModel):

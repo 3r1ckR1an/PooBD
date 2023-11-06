@@ -1,9 +1,9 @@
 from django.views.generic import DeleteView
-from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato, CustomUser, Validacao
+from ..models import Categoria, Cozinheiro, Degustador, Editor, Livro, Ingrediente, Receita, Restaurante, Porcao, Contrato, User, Validacao
 from django.urls import reverse_lazy
 
 class UserDeleteBaseView(DeleteView):
-    model = CustomUser
+    model = User
     template_name = 'delete/user_confirm_deletion.html'
 
 
