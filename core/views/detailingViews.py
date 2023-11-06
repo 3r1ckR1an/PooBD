@@ -50,6 +50,10 @@ class TasterDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
+        taster = self.get_object()
+        avaliacoes = Validacao.objects.filter(taster= taster)
+        context['avaliacoes'] = avaliacoes
+        
         context['prev_page_link'] = '/degustador'
         
         return context
@@ -184,11 +188,6 @@ class RestauranteDetailView(DetailView):
         context['cozinheiros'] = cozinheiros
         context['degustadores'] = degustadores
         context['editores'] = editores
-        # context['employees'] = {
-        #     'cozinheiros': cozinheiros,
-        #     'degustadores': degustadores,
-        #     'editores': editores,
-        # }
         
         context['prev_page_link'] = '/restaurante'
         
@@ -208,8 +207,11 @@ class RecipeDetailView(DetailView):
         
         receita = self.get_object()
         quando = receita.created_at
+        porcoes = Porcao.objects.filter(recipe= receita)
+        
         context['data_de_criacao'] = f'{quando.day}/{quando.month}/{quando.year}'
         context['prev_page_link'] = '/receita'
+        context['porcoes'] = porcoes
         
         return context
 

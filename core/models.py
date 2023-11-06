@@ -112,7 +112,7 @@ class Receita(PrimitiveModel):
     description = models.CharField(default='', blank= True)
     category = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     chef = models.ForeignKey(Cozinheiro, on_delete=models.CASCADE)
-    book = models.OneToOneField(Livro, on_delete=models.CASCADE)
+    book = models.ForeignKey(Livro, on_delete=models.CASCADE)
     
     def get_absolute_url(self):
         return reverse('receita-detail', args=[str(self.code)])
@@ -139,9 +139,9 @@ class Porcao(PrimitiveModel):
         verbose_name_plural = 'Porções'
         
     ingredient = models.ForeignKey(Ingrediente, on_delete=models.CASCADE)
-    ingredient_amount = models.IntegerField()
+    ingredient_amount = models.IntegerField(null= True, blank= True)
     measurement = models.CharField(null=True, blank=True)
-    recipe = models.OneToOneField(Receita, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Receita, on_delete=models.CASCADE)
     
     def __str__(self) -> str:
         return self.ingredient.name + '-' + self.recipe.name
